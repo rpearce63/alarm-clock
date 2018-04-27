@@ -8,20 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		4D2FDA1C2093972300D97744 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2FDA1B2093972300D97744 /* AppDelegate.swift */; };
-		4D2FDA1E2093972300D97744 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2FDA1D2093972300D97744 /* ViewController.swift */; };
+		4D2FDA1E2093972300D97744 /* AlarmClockVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2FDA1D2093972300D97744 /* AlarmClockVC.swift */; };
 		4D2FDA212093972300D97744 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D2FDA1F2093972300D97744 /* Main.storyboard */; };
 		4D2FDA232093972500D97744 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D2FDA222093972500D97744 /* Assets.xcassets */; };
 		4D2FDA262093972500D97744 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D2FDA242093972500D97744 /* LaunchScreen.storyboard */; };
+		4D2FDA2E20939A2900D97744 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2FDA2D20939A2900D97744 /* SettingsVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4D2FDA182093972300D97744 /* alarm-clock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "alarm-clock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D2FDA1B2093972300D97744 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4D2FDA1D2093972300D97744 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4D2FDA1D2093972300D97744 /* AlarmClockVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmClockVC.swift; sourceTree = "<group>"; };
 		4D2FDA202093972300D97744 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4D2FDA222093972500D97744 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4D2FDA252093972500D97744 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4D2FDA272093972500D97744 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4D2FDA2D20939A2900D97744 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +56,23 @@
 		4D2FDA1A2093972300D97744 /* alarm-clock */ = {
 			isa = PBXGroup;
 			children = (
+				4D2FDA2F20939A6300D97744 /* Controller */,
 				4D2FDA1B2093972300D97744 /* AppDelegate.swift */,
-				4D2FDA1D2093972300D97744 /* ViewController.swift */,
 				4D2FDA1F2093972300D97744 /* Main.storyboard */,
 				4D2FDA222093972500D97744 /* Assets.xcassets */,
 				4D2FDA242093972500D97744 /* LaunchScreen.storyboard */,
 				4D2FDA272093972500D97744 /* Info.plist */,
 			);
 			path = "alarm-clock";
+			sourceTree = "<group>";
+		};
+		4D2FDA2F20939A6300D97744 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				4D2FDA2D20939A2900D97744 /* SettingsVC.swift */,
+				4D2FDA1D2093972300D97744 /* AlarmClockVC.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,8 +146,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D2FDA1E2093972300D97744 /* ViewController.swift in Sources */,
+				4D2FDA1E2093972300D97744 /* AlarmClockVC.swift in Sources */,
 				4D2FDA1C2093972300D97744 /* AppDelegate.swift in Sources */,
+				4D2FDA2E20939A2900D97744 /* SettingsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,7 +293,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7UVW89GGJ4;
+				DEVELOPMENT_TEAM = D9R62VXR3G;
 				INFOPLIST_FILE = "alarm-clock/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -299,7 +311,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7UVW89GGJ4;
+				DEVELOPMENT_TEAM = D9R62VXR3G;
 				INFOPLIST_FILE = "alarm-clock/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
