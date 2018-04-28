@@ -20,27 +20,39 @@ class AlarmClockVC: UIViewController {
     var alarm: Int = 0
     let dateFormatter = DateFormatter()
     var alarmIsRinging : Bool = false
-    var alarmMusic : AVAudioPlayer?
+    var red : CGFloat = 0
+    var green : CGFloat = 0
+    var blue : CGFloat = 0
+    
+//    var alarmMusic : AVAudioPlayer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let path = Bundle.main.path(forResource: "deck-party", ofType: "mp3")
-        let url = URL(fileURLWithPath: path!)
-        do {
-            try alarmMusic = AVAudioPlayer(contentsOf: url)
-        } catch {
-            print(error)
-        }
-        
+//        let path = Bundle.main.path(forResource: "deck-party", ofType: "mp3")
+//        let url = URL(fileURLWithPath: path!)
+//        do {
+//            try alarmMusic = AVAudioPlayer(contentsOf: url)
+//        } catch {
+//            print(error)
+//        }
+        setBackground()
+    }
+    
+    func setBackground() {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [UIColor.blue, UIColor.black]
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+        view.layer.addSublayer(gradientLayer)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         alarm = UserDefaults.standard.integer(forKey: "alarm")
         convertStoredAlarmToDate()
-        setTime()
+        updateTime()
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (timer) in
-            self.setTime()
+            self.updateTime()
         
             self.checkAlarm()
         }
@@ -56,10 +68,14 @@ class AlarmClockVC: UIViewController {
     
     func checkAlarm() {
         if activateSwitch.isOn && getTimeAsString() == getTimeAsString(time: alarm) {
-            alarmMusic?.play()
+            AudioService.instance.player().play()
             if snoozeBtn.isHidden {
                 snoozeBtn.isHidden = false
             }
+            red += red >= 1 ? 0 : 00.001
+            green += green >= 1 ? 0 : 0.001
+            blue += blue >= 1 ? 0 : 0.001
+            view.backgroundColor = UIColor(red: red, green: green, blue: blue, alpha: 1)
         }
     }
     
@@ -71,8 +87,7 @@ class AlarmClockVC: UIViewController {
         }
     }
     
-    func setTime() {
-        
+    func updateTime() {
         dateFormatter.dateStyle = .none
         dateFormatter.timeStyle = .short
         
@@ -86,12 +101,12 @@ class AlarmClockVC: UIViewController {
     @IBAction func snoozeBtnPressed(_ sender: Any) {
         alarm += 1 * 60
         snoozeBtn.isHidden = true
-        alarmMusic?.pause()
+        AudioService.instance.player().pause()
     }
     
     @IBAction func alarmSwitchChanged(_ sender: Any) {
         snoozeBtn.isHidden = true
-        alarmMusic?.stop()
+        AudioService.instance.player().stop()
     }
     
 }

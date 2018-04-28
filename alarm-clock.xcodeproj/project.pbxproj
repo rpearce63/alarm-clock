@@ -14,6 +14,8 @@
 		4D2FDA262093972500D97744 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D2FDA242093972500D97744 /* LaunchScreen.storyboard */; };
 		4D2FDA2E20939A2900D97744 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2FDA2D20939A2900D97744 /* SettingsVC.swift */; };
 		79B5B59B20949664009DD358 /* deck-party.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 79B5B59A20949664009DD358 /* deck-party.mp3 */; };
+		79B5B59E2094B46A009DD358 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B5B59D2094B46A009DD358 /* WeatherService.swift */; };
+		79B5B5A02094B479009DD358 /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B5B59F2094B479009DD358 /* AudioService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		4D2FDA272093972500D97744 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D2FDA2D20939A2900D97744 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		79B5B59A20949664009DD358 /* deck-party.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "deck-party.mp3"; sourceTree = "<group>"; };
+		79B5B59D2094B46A009DD358 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
+		79B5B59F2094B479009DD358 /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +62,7 @@
 		4D2FDA1A2093972300D97744 /* alarm-clock */ = {
 			isa = PBXGroup;
 			children = (
+				79B5B59C2094B44C009DD358 /* Services */,
 				4D2FDA2F20939A6300D97744 /* Controller */,
 				4D2FDA1B2093972300D97744 /* AppDelegate.swift */,
 				4D2FDA1F2093972300D97744 /* Main.storyboard */,
@@ -76,6 +81,15 @@
 				4D2FDA1D2093972300D97744 /* AlarmClockVC.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		79B5B59C2094B44C009DD358 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				79B5B59D2094B46A009DD358 /* WeatherService.swift */,
+				79B5B59F2094B479009DD358 /* AudioService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -150,6 +164,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79B5B5A02094B479009DD358 /* AudioService.swift in Sources */,
+				79B5B59E2094B46A009DD358 /* WeatherService.swift in Sources */,
 				4D2FDA1E2093972300D97744 /* AlarmClockVC.swift in Sources */,
 				4D2FDA1C2093972300D97744 /* AppDelegate.swift in Sources */,
 				4D2FDA2E20939A2900D97744 /* SettingsVC.swift in Sources */,
