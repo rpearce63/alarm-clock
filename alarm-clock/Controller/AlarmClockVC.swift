@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AVKit
+import AVFoundation
 
 class AlarmClockVC: UIViewController {
 
@@ -18,9 +20,17 @@ class AlarmClockVC: UIViewController {
     var alarm: Int = 0
     let dateFormatter = DateFormatter()
     var alarmIsRinging : Bool = false
+    var alarmMusic : AVAudioPlayer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let path = Bundle.main.path(forResource: "deck-party", ofType: "mp3")
+        let url = URL(fileURLWithPath: path!)
+        do {
+            try alarmMusic = AVAudioPlayer(contentsOf: url)
+        } catch {
+            print(error)
+        }
         
     }
     
@@ -46,6 +56,7 @@ class AlarmClockVC: UIViewController {
     
     func checkAlarm() {
         if activateSwitch.isOn && getTimeAsString() == getTimeAsString(time: alarm) {
+            alarmMusic?.play()
             if snoozeBtn.isHidden {
                 snoozeBtn.isHidden = false
             }
@@ -73,12 +84,14 @@ class AlarmClockVC: UIViewController {
     }
     
     @IBAction func snoozeBtnPressed(_ sender: Any) {
-        alarm += 9 * 60
+        alarm += 1 * 60
         snoozeBtn.isHidden = true
+        alarmMusic?.pause()
     }
     
     @IBAction func alarmSwitchChanged(_ sender: Any) {
-        
+        snoozeBtn.isHidden = true
+        alarmMusic?.stop()
     }
     
 }
