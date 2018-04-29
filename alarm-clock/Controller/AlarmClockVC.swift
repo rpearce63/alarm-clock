@@ -17,12 +17,14 @@ class AlarmClockVC: UIViewController {
     @IBOutlet weak var alarmLbl: UILabel!
     @IBOutlet weak var snoozeBtn: UIButton!
     
+    var alpha : CGFloat = 1.0
     var alarm: Int = 0
     let dateFormatter = DateFormatter()
     var alarmIsRinging : Bool = false
     var red : CGFloat = 0
     var green : CGFloat = 0
     var blue : CGFloat = 0
+    var gradientLayer : CAGradientLayer!
     
     var player : AVAudioPlayer?
     
@@ -38,10 +40,10 @@ class AlarmClockVC: UIViewController {
     }
     
     func setBackground() {
-        let gradientLayer = CAGradientLayer()
+        gradientLayer = CAGradientLayer()
         gradientLayer.colors = [UIColor.blue.cgColor, UIColor.black.cgColor]
-        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
-        gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
+        //gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
+        //gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
         gradientLayer.frame = view.bounds
         view.layer.insertSublayer(gradientLayer, at: 0)
     }
@@ -66,6 +68,8 @@ class AlarmClockVC: UIViewController {
             if snoozeBtn.isHidden {
                 snoozeBtn.isHidden = false
             }
+            alpha -= alpha == 0 ? 0 : 0.02
+            gradientLayer.colors = [UIColor.blue.withAlphaComponent(alpha).cgColor ,UIColor.black.withAlphaComponent(alpha).cgColor]
 //            red += red >= 1 ? 0 : 00.001
 //            green += green >= 1 ? 0 : 0.001
 //            blue += blue >= 1 ? 0 : 0.001
