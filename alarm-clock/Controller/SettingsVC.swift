@@ -20,6 +20,7 @@ class SettingsVC: UIViewController  {
         let alarm = UserDefaults.standard.integer(forKey: "alarm")
         if alarm > 0 {
             datePicker.setDate(Date(timeIntervalSince1970: Double(alarm)), animated: true)
+            timeLbl.text = formatDate()
         }
     }
 

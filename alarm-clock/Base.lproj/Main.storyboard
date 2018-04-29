@@ -18,9 +18,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12:00 AM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Qk-3p-ehE">
-                                <rect key="frame" x="24.5" y="284.5" width="326.5" height="97"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="71"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12:00 AM" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Qk-3p-ehE">
+                                <rect key="frame" x="8" y="158.5" width="359" height="350"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="128"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -37,7 +37,7 @@
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xLN-cK-eM0">
-                                <rect key="frame" x="20" y="587" width="335" height="60"/>
+                                <rect key="frame" x="20" y="592" width="335" height="55"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="36"/>
                                 <state key="normal" title="SNOOZE"/>
                                 <connections>
@@ -51,24 +51,24 @@
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Alarm Set" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7gt-VJ-vCC">
-                                <rect key="frame" x="16" y="67" width="125" height="21"/>
+                                <rect key="frame" x="16" y="67" width="125" height="27.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="125" id="f0M-lv-1ab"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="20"/>
+                                <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="xLN-cK-eM0" secondAttribute="trailing" constant="20" id="3hm-hn-wiv"/>
-                            <constraint firstItem="xLN-cK-eM0" firstAttribute="top" secondItem="6Qk-3p-ehE" secondAttribute="bottom" constant="205.5" id="8E6-zT-Oo2"/>
                             <constraint firstItem="sbE-Pa-0XO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="JFy-8O-AT6"/>
                             <constraint firstItem="7sg-C5-EbB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="KCt-Lv-cjX"/>
                             <constraint firstItem="7gt-VJ-vCC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="RTc-H0-qGN"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7sg-C5-EbB" secondAttribute="trailing" constant="8" id="Uik-eg-vtu"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6Qk-3p-ehE" secondAttribute="trailing" constant="8" id="WB5-TR-ZVW"/>
                             <constraint firstItem="6Qk-3p-ehE" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="YPi-Rr-wUJ"/>
+                            <constraint firstItem="6Qk-3p-ehE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="Zhi-FW-qTY"/>
                             <constraint firstItem="6Qk-3p-ehE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="tME-tV-d6H"/>
                             <constraint firstItem="7gt-VJ-vCC" firstAttribute="top" secondItem="sbE-Pa-0XO" secondAttribute="bottom" constant="16" id="wiN-ep-Rg5"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="xLN-cK-eM0" secondAttribute="bottom" constant="20" id="x0h-m5-DpG"/>

@@ -24,38 +24,32 @@ class AlarmClockVC: UIViewController {
     var green : CGFloat = 0
     var blue : CGFloat = 0
     
-//    var alarmMusic : AVAudioPlayer?
+    var player : AVAudioPlayer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        let path = Bundle.main.path(forResource: "deck-party", ofType: "mp3")
-//        let url = URL(fileURLWithPath: path!)
-//        do {
-//            try alarmMusic = AVAudioPlayer(contentsOf: url)
-//        } catch {
-//            print(error)
-//        }
+        setUpPlayer()
         setBackground()
+        updateTime()
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (timer) in
+            self.updateTime()
+            self.checkAlarm()
+        }
     }
     
     func setBackground() {
         let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [UIColor.blue, UIColor.black]
-        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
-        gradientLayer.endPoint = CGPoint(x: 1, y: 1)
-        view.layer.addSublayer(gradientLayer)
+        gradientLayer.colors = [UIColor.blue.cgColor, UIColor.black.cgColor]
+        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
+        gradientLayer.frame = view.bounds
+        view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         alarm = UserDefaults.standard.integer(forKey: "alarm")
         convertStoredAlarmToDate()
-        updateTime()
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (timer) in
-            self.updateTime()
-        
-            self.checkAlarm()
-        }
         
     }
     
@@ -68,14 +62,14 @@ class AlarmClockVC: UIViewController {
     
     func checkAlarm() {
         if activateSwitch.isOn && getTimeAsString() == getTimeAsString(time: alarm) {
-            AudioService.instance.player().play()
+            self.player?.play()
             if snoozeBtn.isHidden {
                 snoozeBtn.isHidden = false
             }
-            red += red >= 1 ? 0 : 00.001
-            green += green >= 1 ? 0 : 0.001
-            blue += blue >= 1 ? 0 : 0.001
-            view.backgroundColor = UIColor(red: red, green: green, blue: blue, alpha: 1)
+//            red += red >= 1 ? 0 : 00.001
+//            green += green >= 1 ? 0 : 0.001
+//            blue += blue >= 1 ? 0 : 0.001
+//            view.backgroundColor = UIColor(red: red, green: green, blue: blue, alpha: 1)
         }
     }
     
@@ -101,12 +95,22 @@ class AlarmClockVC: UIViewController {
     @IBAction func snoozeBtnPressed(_ sender: Any) {
         alarm += 1 * 60
         snoozeBtn.isHidden = true
-        AudioService.instance.player().pause()
+        player?.pause()
     }
     
     @IBAction func alarmSwitchChanged(_ sender: Any) {
         snoozeBtn.isHidden = true
-        AudioService.instance.player().stop()
+        player?.stop()
+    }
+    
+    func setUpPlayer() {
+        let path = Bundle.main.path(forResource: "deck-party", ofType: "mp3")
+        let url = URL(fileURLWithPath: path!)
+        do {
+            try player = AVAudioPlayer(contentsOf: url)
+        } catch {
+            print(error)
+        }
     }
     
 }
