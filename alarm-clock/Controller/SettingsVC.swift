@@ -22,8 +22,17 @@ class SettingsVC: UIViewController  {
             datePicker.setDate(Date(timeIntervalSince1970: Double(alarm)), animated: true)
             timeLbl.text = formatDate()
         }
+        setBackground()
     }
 
+    func setBackground() {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [UIColor.cyan.cgColor ,UIColor.blue.cgColor]
+        gradientLayer.frame = view.bounds
+        view.layer.insertSublayer(gradientLayer, at: 0)
+        
+    }
+    
     func formatDate() -> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .none
