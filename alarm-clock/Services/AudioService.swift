@@ -12,16 +12,19 @@ import AVKit
 
 class AudioService {
     static let instance = AudioService()
+    var player : AVAudioPlayer?
     
-    func player() -> AVAudioPlayer {
+    init() {
         let path = Bundle.main.path(forResource: "deck-party", ofType: "mp3")
         let url = URL(fileURLWithPath: path!)
-        var alarmMusic = AVAudioPlayer()
         do {
-            try alarmMusic = AVAudioPlayer(contentsOf: url)
+            try player = AVAudioPlayer(contentsOf: url)
+            player?.volume = 0
         } catch {
             print(error)
         }
-        return alarmMusic
     }
+    
+
+        
 }

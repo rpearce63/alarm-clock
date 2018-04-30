@@ -23,12 +23,12 @@ class AlarmClockVC: UIViewController {
     var alarmIsPlaying : Bool = false
     var gradientLayer : CAGradientLayer!
     
-    var player : AVAudioPlayer?
+    var player = AudioService.instance.player
     
     override func viewDidLoad() {
         super.viewDidLoad()
         UIApplication.shared.isIdleTimerDisabled = true
-        setUpPlayer()
+        //setUpPlayer()
         setBackground()
         updateTime()
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (timer) in
@@ -70,9 +70,16 @@ class AlarmClockVC: UIViewController {
             if snoozeBtn.isHidden {
                 snoozeBtn.isHidden = false
             }
-            alpha -= alpha == 0 ? 0 : 0.01
-            gradientLayer.colors = [UIColor.blue.withAlphaComponent(alpha).cgColor ,UIColor.black.withAlphaComponent(alpha).cgColor]
-            player?.volume += Float(alpha)
+            if alpha > 0 {
+                alpha -= 0.01
+                gradientLayer.colors = [UIColor.blue.withAlphaComponent(alpha).cgColor ,UIColor.black.withAlphaComponent(alpha).cgColor]
+            }
+            if player!.volume < 1 {
+                player!.volume += 0.01
+            }
+            if UIScreen.main.brightness < 0.75 {
+                UIScreen.main.brightness += 0.01
+            }
         }
     }
     
@@ -99,29 +106,15 @@ class AlarmClockVC: UIViewController {
         alarm += 9 * 60
         snoozeBtn.isHidden = true
         player?.pause()
+        UIScreen.main.brightness = 0.25
     }
     
     @IBAction func alarmSwitchChanged(_ sender: Any) {
-//        if activateSwitch.isOn {
-//            activateSwitch.thumbTintColor = UIColor.green
-//        } else {
-//            activateSwitch.thumbTintColor = UIColor.darkGray
-//        }
         snoozeBtn.isHidden = true
         player?.stop()
         gradientLayer.colors = [UIColor.blue.withAlphaComponent(1.0).cgColor ,UIColor.black.withAlphaComponent(1.0).cgColor]
         alpha = 1
-    }
-    
-    func setUpPlayer() {
-        let path = Bundle.main.path(forResource: "deck-party", ofType: "mp3")
-        let url = URL(fileURLWithPath: path!)
-        do {
-            try player = AVAudioPlayer(contentsOf: url)
-            player?.numberOfLoops = 10
-        } catch {
-            print(error)
-        }
+        UIScreen.main.brightness = 0.25
     }
     
 }
