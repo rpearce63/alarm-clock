@@ -20,16 +20,14 @@ class AlarmClockVC: UIViewController {
     var alpha : CGFloat = 1.0
     var alarm: Int = 0
     let dateFormatter = DateFormatter()
-    var alarmIsRinging : Bool = false
-    var red : CGFloat = 0
-    var green : CGFloat = 0
-    var blue : CGFloat = 0
+    var alarmIsPlaying : Bool = false
     var gradientLayer : CAGradientLayer!
     
     var player : AVAudioPlayer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        UIApplication.shared.isIdleTimerDisabled = true
         setUpPlayer()
         setBackground()
         updateTime()
@@ -41,18 +39,19 @@ class AlarmClockVC: UIViewController {
     
     func setBackground() {
         gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [UIColor.blue.cgColor, UIColor.black.cgColor]
-        //gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
-        //gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
+        gradientLayer.colors = [UIColor.blue.cgColor ,UIColor.black.cgColor]
         gradientLayer.frame = view.bounds
         view.layer.insertSublayer(gradientLayer, at: 0)
+        let backgroundImageView = UIImageView(image: UIImage(named: "sunrise"))
+        backgroundImageView.frame = view.bounds
+        
+        view.insertSubview(backgroundImageView, at: 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         alarm = UserDefaults.standard.integer(forKey: "alarm")
         convertStoredAlarmToDate()
-        
     }
     
     func getTimeAsString(time: Int? = Int(Date().timeIntervalSince1970)) -> String {
@@ -64,16 +63,16 @@ class AlarmClockVC: UIViewController {
     
     func checkAlarm() {
         if activateSwitch.isOn && getTimeAsString() == getTimeAsString(time: alarm) {
-            self.player?.play()
+            if !self.player!.isPlaying {
+                self.player?.play()
+            }
+            
             if snoozeBtn.isHidden {
                 snoozeBtn.isHidden = false
             }
-            alpha -= alpha == 0 ? 0 : 0.02
+            alpha -= alpha == 0 ? 0 : 0.01
             gradientLayer.colors = [UIColor.blue.withAlphaComponent(alpha).cgColor ,UIColor.black.withAlphaComponent(alpha).cgColor]
-//            red += red >= 1 ? 0 : 00.001
-//            green += green >= 1 ? 0 : 0.001
-//            blue += blue >= 1 ? 0 : 0.001
-//            view.backgroundColor = UIColor(red: red, green: green, blue: blue, alpha: 1)
+            player?.volume += Float(alpha)
         }
     }
     
@@ -97,14 +96,21 @@ class AlarmClockVC: UIViewController {
     }
     
     @IBAction func snoozeBtnPressed(_ sender: Any) {
-        alarm += 1 * 60
+        alarm += 9 * 60
         snoozeBtn.isHidden = true
         player?.pause()
     }
     
     @IBAction func alarmSwitchChanged(_ sender: Any) {
+//        if activateSwitch.isOn {
+//            activateSwitch.thumbTintColor = UIColor.green
+//        } else {
+//            activateSwitch.thumbTintColor = UIColor.darkGray
+//        }
         snoozeBtn.isHidden = true
         player?.stop()
+        gradientLayer.colors = [UIColor.blue.withAlphaComponent(1.0).cgColor ,UIColor.black.withAlphaComponent(1.0).cgColor]
+        alpha = 1
     }
     
     func setUpPlayer() {
@@ -112,6 +118,7 @@ class AlarmClockVC: UIViewController {
         let url = URL(fileURLWithPath: path!)
         do {
             try player = AVAudioPlayer(contentsOf: url)
+            player?.numberOfLoops = 10
         } catch {
             print(error)
         }
