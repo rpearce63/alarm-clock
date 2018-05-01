@@ -24,13 +24,11 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7sg-C5-EbB">
-                                <rect key="frame" x="287" y="20" width="80" height="30"/>
-                                <color key="backgroundColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7sg-C5-EbB">
+                                <rect key="frame" x="287" y="40" width="80" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="ObW-ao-D1Y"/>
                                 </constraints>
-                                <state key="normal" title="Settings"/>
                                 <connections>
                                     <action selector="settingsBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xab-qe-KM9"/>
                                     <segue destination="OBB-kK-yoX" kind="show" identifier="gotoSettings" id="G8i-hw-rNA"/>
@@ -45,13 +43,13 @@
                                 </connections>
                             </button>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sbE-Pa-0XO">
-                                <rect key="frame" x="16" y="20" width="51" height="31"/>
+                                <rect key="frame" x="16" y="40" width="51" height="31"/>
                                 <connections>
                                     <action selector="alarmSwitchChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="qYW-x0-BX2"/>
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Alarm Set" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7gt-VJ-vCC">
-                                <rect key="frame" x="16" y="67" width="125" height="27.5"/>
+                                <rect key="frame" x="16" y="87" width="125" height="27.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="125" id="f0M-lv-1ab"/>
                                 </constraints>
@@ -64,7 +62,7 @@
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="xLN-cK-eM0" secondAttribute="trailing" constant="20" id="3hm-hn-wiv"/>
                             <constraint firstItem="sbE-Pa-0XO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="JFy-8O-AT6"/>
-                            <constraint firstItem="7sg-C5-EbB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="KCt-Lv-cjX"/>
+                            <constraint firstItem="7sg-C5-EbB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="KCt-Lv-cjX"/>
                             <constraint firstItem="7gt-VJ-vCC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="RTc-H0-qGN"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7sg-C5-EbB" secondAttribute="trailing" constant="8" id="Uik-eg-vtu"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6Qk-3p-ehE" secondAttribute="trailing" constant="8" id="WB5-TR-ZVW"/>
@@ -73,7 +71,7 @@
                             <constraint firstItem="6Qk-3p-ehE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="tME-tV-d6H"/>
                             <constraint firstItem="7gt-VJ-vCC" firstAttribute="top" secondItem="sbE-Pa-0XO" secondAttribute="bottom" constant="16" id="wiN-ep-Rg5"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="xLN-cK-eM0" secondAttribute="bottom" constant="20" id="x0h-m5-DpG"/>
-                            <constraint firstItem="sbE-Pa-0XO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ykq-Nw-4x5"/>
+                            <constraint firstItem="sbE-Pa-0XO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="ykq-Nw-4x5"/>
                             <constraint firstItem="xLN-cK-eM0" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="zNh-N3-Wn7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

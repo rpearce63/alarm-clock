@@ -23,12 +23,11 @@ class AlarmClockVC: UIViewController {
     var alarmIsPlaying : Bool = false
     var gradientLayer : CAGradientLayer!
     
-    var player = AudioService.instance.player
+    var player : AVQueuePlayer = AudioService.instance.player!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         UIApplication.shared.isIdleTimerDisabled = true
-        //setUpPlayer()
         setBackground()
         updateTime()
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (timer) in
@@ -62,9 +61,10 @@ class AlarmClockVC: UIViewController {
     }
     
     func checkAlarm() {
-        if activateSwitch.isOn && getTimeAsString() == getTimeAsString(time: alarm) {
-            if !self.player!.isPlaying {
-                self.player?.play()
+        if activateSwitch.isOn && (getTimeAsString() == getTimeAsString(time: alarm) || alarmIsPlaying) {
+            if !alarmIsPlaying {
+                self.player.play()
+                alarmIsPlaying = true
             }
             
             if snoozeBtn.isHidden {
@@ -74,8 +74,8 @@ class AlarmClockVC: UIViewController {
                 alpha -= 0.01
                 gradientLayer.colors = [UIColor.blue.withAlphaComponent(alpha).cgColor ,UIColor.black.withAlphaComponent(alpha).cgColor]
             }
-            if player!.volume < 1 {
-                player!.volume += 0.01
+            if player.volume < 1 {
+                player.volume += 0.01
             }
             if UIScreen.main.brightness < 0.75 {
                 UIScreen.main.brightness += 0.01
@@ -105,16 +105,18 @@ class AlarmClockVC: UIViewController {
     @IBAction func snoozeBtnPressed(_ sender: Any) {
         alarm += 9 * 60
         snoozeBtn.isHidden = true
-        player?.pause()
-        UIScreen.main.brightness = 0.25
+        player.pause()
+        alarmIsPlaying = false
+        UIScreen.main.brightness = 0.33
     }
     
     @IBAction func alarmSwitchChanged(_ sender: Any) {
         snoozeBtn.isHidden = true
-        player?.stop()
+        player.pause()
+        alarmIsPlaying = false
         gradientLayer.colors = [UIColor.blue.withAlphaComponent(1.0).cgColor ,UIColor.black.withAlphaComponent(1.0).cgColor]
         alpha = 1
-        UIScreen.main.brightness = 0.25
+        UIScreen.main.brightness = 0.33
     }
     
 }
