@@ -29,21 +29,30 @@ class AlarmClockVC: UIViewController {
         super.viewDidLoad()
         UIApplication.shared.isIdleTimerDisabled = true
         setBackground()
+        setBackgroundFadeImage()
         updateTime()
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (timer) in
             self.updateTime()
             self.checkAlarm()
         }
     }
+    func setBackgroundGradientColors(alpha: CGFloat = 1.0) {
+        let midnight = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
+        gradientLayer.colors = [UIColor.black.withAlphaComponent(alpha).cgColor, midnight.withAlphaComponent(alpha).cgColor ,UIColor.black.withAlphaComponent(alpha).cgColor]
+        gradientLayer.locations = [0.2, 0.5, 1]
+    }
     
     func setBackground() {
         gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [UIColor.blue.cgColor ,UIColor.black.cgColor]
+        setBackgroundGradientColors()
         gradientLayer.frame = view.bounds
         view.layer.insertSublayer(gradientLayer, at: 0)
+        
+    }
+    
+    func setBackgroundFadeImage() {
         let backgroundImageView = UIImageView(image: UIImage(named: "sunrise"))
         backgroundImageView.frame = view.bounds
-        
         view.insertSubview(backgroundImageView, at: 0)
     }
     
@@ -72,7 +81,7 @@ class AlarmClockVC: UIViewController {
             }
             if alpha > 0 {
                 alpha -= 0.01
-                gradientLayer.colors = [UIColor.blue.withAlphaComponent(alpha).cgColor ,UIColor.black.withAlphaComponent(alpha).cgColor]
+                setBackgroundGradientColors(alpha: alpha)
             }
             if player.volume < 1 {
                 player.volume += 0.01
@@ -114,10 +123,9 @@ class AlarmClockVC: UIViewController {
         snoozeBtn.isHidden = true
         player.pause()
         alarmIsPlaying = false
-        gradientLayer.colors = [UIColor.blue.withAlphaComponent(1.0).cgColor ,UIColor.black.withAlphaComponent(1.0).cgColor]
-        alpha = 1
+        alpha = 1.0
+        setBackgroundGradientColors(alpha: alpha)
         UIScreen.main.brightness = 0.33
     }
-    
 }
 
