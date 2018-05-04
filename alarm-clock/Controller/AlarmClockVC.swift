@@ -50,7 +50,11 @@ class AlarmClockVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         alarm = UserDefaults.standard.object(forKey: "alarm") as? String
-        convertStoredAlarmToDate()
+        if alarm != nil {
+            alarmLbl.text = alarm
+        } else {
+            alarmLbl.text = "No Alarm Set"
+        }
     }
     
     
@@ -106,12 +110,10 @@ class AlarmClockVC: UIViewController {
         }
     }
     
-    func convertStoredAlarmToDate() {
-        if alarm != nil {
-            alarmLbl.text = alarm
-        } else {
-            alarmLbl.text = "No Alarm Set"
-        }
+    func shiftAlarmTimeForSnooze() {
+        var time = dateFormatter.date(from: self.alarm!)
+        time?.addTimeInterval(9 * 60)
+        self.alarm = dateFormatter.string(from: time!)
     }
     
     func updateTime() {
@@ -126,7 +128,7 @@ class AlarmClockVC: UIViewController {
     }
     
     @IBAction func snoozeBtnPressed(_ sender: Any) {
-        //alarm += 9 * 60
+        shiftAlarmTimeForSnooze()
         snoozeBtn.isHidden = true
         player.pause()
         alarmIsPlaying = false
