@@ -18,26 +18,44 @@ class AlarmClockVC: UIViewController {
     @IBOutlet weak var snoozeBtn: UIButton!
     
     var alpha : CGFloat = 1.0
-    var alarm: Int = 0
+    var alarm: String?
     let dateFormatter = DateFormatter()
     var alarmIsPlaying : Bool = false
     var gradientLayer : CAGradientLayer!
     
     var player : AVQueuePlayer = AudioService.instance.player!
     
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .all
+    }
+    
+    override var shouldAutorotate: Bool {
+        return true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         UIApplication.shared.isIdleTimerDisabled = true
         setBackground()
         setBackgroundFadeImage()
         updateTime()
+        
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (timer) in
             self.updateTime()
             self.checkAlarm()
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        alarm = UserDefaults.standard.object(forKey: "alarm") as? String
+        convertStoredAlarmToDate()
+    }
+    
+    
     func setBackgroundGradientColors(alpha: CGFloat = 1.0) {
-        let midnight = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
+        let midnight = #colorLiteral(red: 0.01176470588, green: 0.1529411765, blue: 0.2274509804, alpha: 1) //#03273A
         gradientLayer.colors = [UIColor.black.withAlphaComponent(alpha).cgColor, midnight.withAlphaComponent(alpha).cgColor ,UIColor.black.withAlphaComponent(alpha).cgColor]
         gradientLayer.locations = [0.2, 0.5, 1]
     }
@@ -56,11 +74,7 @@ class AlarmClockVC: UIViewController {
         view.insertSubview(backgroundImageView, at: 0)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        alarm = UserDefaults.standard.integer(forKey: "alarm")
-        convertStoredAlarmToDate()
-    }
+    
     
     func getTimeAsString(time: Int? = Int(Date().timeIntervalSince1970)) -> String {
         dateFormatter.dateStyle = .none
@@ -70,7 +84,7 @@ class AlarmClockVC: UIViewController {
     }
     
     func checkAlarm() {
-        if activateSwitch.isOn && (getTimeAsString() == getTimeAsString(time: alarm) || alarmIsPlaying) {
+        if activateSwitch.isOn && (getTimeAsString() == alarm || alarmIsPlaying) {
             if !alarmIsPlaying {
                 self.player.play()
                 alarmIsPlaying = true
@@ -93,8 +107,8 @@ class AlarmClockVC: UIViewController {
     }
     
     func convertStoredAlarmToDate() {
-        if alarm > 0 {
-            alarmLbl.text = dateFormatter.string(from: Date(timeIntervalSince1970: Double(alarm)))
+        if alarm != nil {
+            alarmLbl.text = alarm
         } else {
             alarmLbl.text = "No Alarm Set"
         }
@@ -112,7 +126,7 @@ class AlarmClockVC: UIViewController {
     }
     
     @IBAction func snoozeBtnPressed(_ sender: Any) {
-        alarm += 9 * 60
+        //alarm += 9 * 60
         snoozeBtn.isHidden = true
         player.pause()
         alarmIsPlaying = false

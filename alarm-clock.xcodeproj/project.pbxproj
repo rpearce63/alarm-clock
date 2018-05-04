@@ -13,6 +13,7 @@
 		4D2FDA232093972500D97744 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D2FDA222093972500D97744 /* Assets.xcassets */; };
 		4D2FDA262093972500D97744 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D2FDA242093972500D97744 /* LaunchScreen.storyboard */; };
 		4D2FDA2E20939A2900D97744 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2FDA2D20939A2900D97744 /* SettingsVC.swift */; };
+		7976ED82209C08AC002629E6 /* AlarmListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7976ED81209C08AC002629E6 /* AlarmListVC.swift */; };
 		79B5B59E2094B46A009DD358 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B5B59D2094B46A009DD358 /* WeatherService.swift */; };
 		79B5B5A02094B479009DD358 /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B5B59F2094B479009DD358 /* AudioService.swift */; };
 		79B5B5C32098C3C7009DD358 /* audioFiles in Resources */ = {isa = PBXBuildFile; fileRef = 79B5B5C22098C3C7009DD358 /* audioFiles */; };
@@ -27,6 +28,7 @@
 		4D2FDA252093972500D97744 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4D2FDA272093972500D97744 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D2FDA2D20939A2900D97744 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		7976ED81209C08AC002629E6 /* AlarmListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmListVC.swift; sourceTree = "<group>"; };
 		79B5B59D2094B46A009DD358 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 		79B5B59F2094B479009DD358 /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
 		79B5B5C22098C3C7009DD358 /* audioFiles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = audioFiles; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 			children = (
 				4D2FDA2D20939A2900D97744 /* SettingsVC.swift */,
 				4D2FDA1D2093972300D97744 /* AlarmClockVC.swift */,
+				7976ED81209C08AC002629E6 /* AlarmListVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -164,6 +167,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7976ED82209C08AC002629E6 /* AlarmListVC.swift in Sources */,
 				79B5B5A02094B479009DD358 /* AudioService.swift in Sources */,
 				79B5B59E2094B46A009DD358 /* WeatherService.swift in Sources */,
 				4D2FDA1E2093972300D97744 /* AlarmClockVC.swift in Sources */,
