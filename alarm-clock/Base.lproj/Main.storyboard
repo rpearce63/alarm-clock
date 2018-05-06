@@ -52,10 +52,7 @@
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Alarm Set" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7gt-VJ-vCC">
-                                <rect key="frame" x="16" y="87" width="125" height="27.5"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="125" id="f0M-lv-1ab"/>
-                                </constraints>
+                                <rect key="frame" x="16" y="87" width="123" height="27.5"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="20"/>
                                 <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <nil key="highlightedColor"/>
@@ -73,7 +70,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="xLN-cK-eM0" secondAttribute="trailing" constant="20" id="3hm-hn-wiv"/>
                             <constraint firstItem="7sg-C5-EbB" firstAttribute="centerY" secondItem="sbE-Pa-0XO" secondAttribute="centerY" id="91L-3N-PfG"/>
@@ -81,9 +78,9 @@
                             <constraint firstItem="7gt-VJ-vCC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="RTc-H0-qGN"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7sg-C5-EbB" secondAttribute="trailing" constant="16" id="Uik-eg-vtu"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6Qk-3p-ehE" secondAttribute="trailing" constant="8" id="WB5-TR-ZVW"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7gt-VJ-vCC" secondAttribute="trailing" constant="236" id="XQG-nn-VDD"/>
                             <constraint firstItem="6Qk-3p-ehE" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="YPi-Rr-wUJ"/>
                             <constraint firstItem="6Qk-3p-ehE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="Zhi-FW-qTY"/>
-                            <constraint firstItem="6Qk-3p-ehE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="tME-tV-d6H"/>
                             <constraint firstItem="7gt-VJ-vCC" firstAttribute="top" secondItem="sbE-Pa-0XO" secondAttribute="bottom" constant="16" id="wiN-ep-Rg5"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="xLN-cK-eM0" secondAttribute="bottom" constant="20" id="x0h-m5-DpG"/>
                             <constraint firstItem="sbE-Pa-0XO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="ykq-Nw-4x5"/>
@@ -144,6 +141,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="RzW-mT-vX6" firstAttribute="leading" secondItem="o7a-Ps-jta" secondAttribute="leading" id="2Qi-2M-yXb"/>
+                            <constraint firstItem="Xr2-yu-h5s" firstAttribute="leading" secondItem="dEt-aX-iQ7" secondAttribute="trailing" constant="276" id="3eV-fo-zbE"/>
                             <constraint firstItem="RzW-mT-vX6" firstAttribute="bottom" secondItem="o7a-Ps-jta" secondAttribute="bottom" id="Iwj-oF-1fc"/>
                             <constraint firstItem="o7a-Ps-jta" firstAttribute="trailing" secondItem="Xr2-yu-h5s" secondAttribute="trailing" constant="16" id="KZ4-xG-67s"/>
                             <constraint firstItem="RzW-mT-vX6" firstAttribute="top" secondItem="Xr2-yu-h5s" secondAttribute="bottom" constant="10.5" id="LxR-pi-8qf"/>
@@ -200,7 +198,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LHL-Ya-VZf">
-                                <rect key="frame" x="10" y="20" width="63" height="40"/>
+                                <rect key="frame" x="10" y="20" width="75" height="40"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="20"/>
                                 <state key="normal" title="Cancel">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -212,6 +210,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="UZP-Ze-jpt" firstAttribute="trailing" secondItem="LHL-Ya-VZf" secondAttribute="trailing" constant="290" id="7T9-bg-HrI"/>
                             <constraint firstItem="UZP-Ze-jpt" firstAttribute="trailing" secondItem="njb-bL-pFd" secondAttribute="trailing" constant="20" id="F3N-Jc-4vN"/>
                             <constraint firstItem="slG-cZ-ePd" firstAttribute="centerX" secondItem="etU-zl-tTW" secondAttribute="centerX" id="Jnp-lN-y3H"/>
                             <constraint firstItem="LHL-Ya-VZf" firstAttribute="top" secondItem="etU-zl-tTW" secondAttribute="top" constant="20" id="fSD-La-wti"/>
