@@ -38,10 +38,13 @@ class AlarmListVC: UIViewController {
     }
     
     func setTableBackground() {
+        let background = UIView(frame: view.bounds)
         let gradient = CAGradientLayer()
-        gradient.colors = [UIColor.gray, UIColor.lightText]
-        gradient.frame = tableView.bounds
-        tableView.layer.addSublayer(gradient)
+        gradient.colors = [UIColor.orange.cgColor, UIColor.yellow.cgColor]
+        gradient.frame = background.bounds
+        background.layer.insertSublayer(gradient, at: 0)
+        
+        tableView.backgroundView = background
     }
 
 }
