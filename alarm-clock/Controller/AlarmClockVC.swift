@@ -9,6 +9,8 @@
 import UIKit
 import AVKit
 import AVFoundation
+import Alamofire
+import SwiftyJSON
 
 class AlarmClockVC: UIViewController {
 
@@ -16,6 +18,13 @@ class AlarmClockVC: UIViewController {
     @IBOutlet weak var activateSwitch: UISwitch!
     @IBOutlet weak var alarmLbl: UILabel!
     @IBOutlet weak var snoozeBtn: UIButton!
+    @IBOutlet weak var forecastLbl: UILabel!
+    @IBOutlet weak var tempHighLbl: UILabel!
+    @IBOutlet weak var tempLowLbl: UILabel!
+    @IBOutlet weak var currentWxLbl: UILabel!
+    @IBOutlet weak var weatherView: UIStackView!
+    @IBOutlet weak var clockBottomConstraint: NSLayoutConstraint!
+    @IBOutlet var MainView: UIView!
     
     var alpha : CGFloat = 1.0
     var alarm: String?
@@ -24,6 +33,7 @@ class AlarmClockVC: UIViewController {
     var gradientLayer : CAGradientLayer!
     
     var player : AVQueuePlayer = AudioService.instance.player!
+    
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .all
@@ -35,7 +45,9 @@ class AlarmClockVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        clockBottomConstraint.constant = 8
+        MainView.layoutIfNeeded()
+        weatherView.alpha = 0
         UIApplication.shared.isIdleTimerDisabled = true
         setBackground()
         setBackgroundFadeImage()
@@ -45,6 +57,7 @@ class AlarmClockVC: UIViewController {
             self.updateTime()
             self.checkAlarm()
         }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -92,6 +105,17 @@ class AlarmClockVC: UIViewController {
             if !alarmIsPlaying {
                 self.player.play()
                 alarmIsPlaying = true
+                getWeather()
+            }
+            
+            if weatherView.alpha == 0 {
+                
+                UIView.animate(withDuration: 1, animations: {
+                    self.clockBottomConstraint.constant = 164
+                    self.MainView.layoutIfNeeded()
+                    self.weatherView.alpha = 1;
+                    })
+                
             }
             
             if snoozeBtn.isHidden {
@@ -124,6 +148,23 @@ class AlarmClockVC: UIViewController {
         clock.text = dateFormatter.string(from: now)
     }
 
+    func getWeather()  {
+        
+        Alamofire.request(URL(string: "https://api.darksky.net/forecast/719e207be3ba45829aeadc5594f8d363/33.007544,-96.518680")!)
+            .validate()
+            .responseJSON { (responseData) in
+                
+                if((responseData.result.value) != nil) {
+                    let swiftyJsonVar = JSON(responseData.result.value!)
+                    //let highTemp : Int = swiftyJsonVar["daily"]["data"][0]["summary"].intValue
+                    self.forecastLbl.text =  swiftyJsonVar["daily"]["data"][0]["summary"].stringValue
+                    self.tempHighLbl.text = "\(swiftyJsonVar["daily"]["data"][0]["temperatureHigh"].intValue)"
+                    self.tempLowLbl.text = "\(swiftyJsonVar["daily"]["data"][0]["temperatureLow"].intValue)"
+                    self.currentWxLbl.text = "Currently \(swiftyJsonVar["currently"]["summary"].stringValue) and \(swiftyJsonVar["currently"]["temperature"].intValue)"
+                }
+        }
+        
+    }
     @IBAction func settingsBtnPressed(_ sender: Any) {
     }
     
@@ -141,6 +182,16 @@ class AlarmClockVC: UIViewController {
         alarmIsPlaying = false
         alpha = 1.0
         setBackgroundGradientColors(alpha: alpha)
+        if activateSwitch.isOn {
+            UIView.animate(withDuration: 1) {
+                self.weatherView.alpha = 0
+                self.clockBottomConstraint.constant = 8
+                self.MainView.layoutIfNeeded()
+            }
+            
+        }
+        
+        
         UIScreen.main.brightness = 0.33
     }
 }

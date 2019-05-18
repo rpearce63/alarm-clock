@@ -16,6 +16,14 @@ class SettingsVC: UIViewController  {
     @IBOutlet weak var timeLbl: UILabel!
     var alarms : [String] = []
     
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .all
+    }
+    
+    override var shouldAutorotate: Bool {
+        return true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if let alarms = UserDefaults.standard.array(forKey: "alarmList") as? [String] {

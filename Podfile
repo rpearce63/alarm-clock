@@ -6,5 +6,6 @@ target 'alarm-clock' do
   use_frameworks!
 
   # Pods for alarm-clock
-  pod 'FRa
+    pod 'Alamofire', '~> 4.7'
+    pod 'SwiftyJSON', '~> 4.0'
 end

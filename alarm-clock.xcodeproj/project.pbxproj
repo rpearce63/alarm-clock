@@ -17,6 +17,7 @@
 		79B5B59E2094B46A009DD358 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B5B59D2094B46A009DD358 /* WeatherService.swift */; };
 		79B5B5A02094B479009DD358 /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B5B59F2094B479009DD358 /* AudioService.swift */; };
 		79B5B5C32098C3C7009DD358 /* audioFiles in Resources */ = {isa = PBXBuildFile; fileRef = 79B5B5C22098C3C7009DD358 /* audioFiles */; };
+		B298E3EB145BD60DB6FDED4D /* Pods_alarm_clock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1E7322499CB7025AC70DD88 /* Pods_alarm_clock.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,9 @@
 		79B5B59D2094B46A009DD358 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 		79B5B59F2094B479009DD358 /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
 		79B5B5C22098C3C7009DD358 /* audioFiles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = audioFiles; sourceTree = "<group>"; };
+		984AA7D2C7BDE0086B0E72AA /* Pods-alarm-clock.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alarm-clock.debug.xcconfig"; path = "Pods/Target Support Files/Pods-alarm-clock/Pods-alarm-clock.debug.xcconfig"; sourceTree = "<group>"; };
+		A1E7322499CB7025AC70DD88 /* Pods_alarm_clock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_alarm_clock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F802BDC79A55FFE2069A8809 /* Pods-alarm-clock.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alarm-clock.release.xcconfig"; path = "Pods/Target Support Files/Pods-alarm-clock/Pods-alarm-clock.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,17 +43,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B298E3EB145BD60DB6FDED4D /* Pods_alarm_clock.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E22704E4A1D57B8A008D030 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A1E7322499CB7025AC70DD88 /* Pods_alarm_clock.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		4D2FDA0F2093972300D97744 = {
 			isa = PBXGroup;
 			children = (
 				4D2FDA1A2093972300D97744 /* alarm-clock */,
 				4D2FDA192093972300D97744 /* Products */,
+				9E80CA4FF18CF07D9067EFD3 /* Pods */,
+				3E22704E4A1D57B8A008D030 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -95,6 +110,15 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		9E80CA4FF18CF07D9067EFD3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				984AA7D2C7BDE0086B0E72AA /* Pods-alarm-clock.debug.xcconfig */,
+				F802BDC79A55FFE2069A8809 /* Pods-alarm-clock.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -102,9 +126,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4D2FDA2A2093972500D97744 /* Build configuration list for PBXNativeTarget "alarm-clock" */;
 			buildPhases = (
+				FF099667F30A0D672EE32F0B /* [CP] Check Pods Manifest.lock */,
 				4D2FDA142093972300D97744 /* Sources */,
 				4D2FDA152093972300D97744 /* Frameworks */,
 				4D2FDA162093972300D97744 /* Resources */,
+				8553CC2F7C5B337CFDE1001A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -161,6 +187,47 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8553CC2F7C5B337CFDE1001A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-alarm-clock/Pods-alarm-clock-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-alarm-clock/Pods-alarm-clock-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FF099667F30A0D672EE32F0B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-alarm-clock-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4D2FDA142093972300D97744 /* Sources */ = {
@@ -314,15 +381,13 @@
 		};
 		4D2FDA2B2093972500D97744 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 984AA7D2C7BDE0086B0E72AA /* Pods-alarm-clock.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = D9R62VXR3G;
 				INFOPLIST_FILE = "alarm-clock/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.pearce.alarm-clock";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -332,15 +397,13 @@
 		};
 		4D2FDA2C2093972500D97744 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F802BDC79A55FFE2069A8809 /* Pods-alarm-clock.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = D9R62VXR3G;
 				INFOPLIST_FILE = "alarm-clock/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.pearce.alarm-clock";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

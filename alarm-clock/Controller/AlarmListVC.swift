@@ -15,6 +15,14 @@ class AlarmListVC: UIViewController {
     
     var alarms: [String] = []
     
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .all
+    }
+    
+    override var shouldAutorotate: Bool {
+        return true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
