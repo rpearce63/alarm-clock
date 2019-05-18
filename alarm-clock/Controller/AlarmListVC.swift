@@ -68,9 +68,16 @@ extension AlarmListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let strAlarm = UserDefaults.standard.object(forKey: "alarm") as? String
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "alarmCell") else { return UITableViewCell() }
         cell.textLabel?.font = UIFont(name: "Avenir Next", size: 24)
         cell.textLabel?.text = alarms[indexPath.row]
+        if cell.textLabel?.text == strAlarm {
+            cell.accessoryType = .checkmark
+        } else {
+            cell.accessoryType = .none
+        }
+        
         if indexPath.row % 2 == 0 {
             cell.backgroundColor = #colorLiteral(red: 0.9188147187, green: 0.9188147187, blue: 0.9188147187, alpha: 1)
         } else {

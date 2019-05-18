@@ -58,8 +58,10 @@ class SettingsVC: UIViewController  {
     @IBAction func setAlarmBtnPressed(_ sender: Any) {
         //print(formatDate())
         //UserDefaults.standard.set(datePicker.date.timeIntervalSince1970, forKey: "alarm")
-        alarms.append(formatDate())
+        let strAlarm = formatDate()
+        alarms.append(strAlarm)
         UserDefaults.standard.set(alarms, forKey: "alarmList")
+        UserDefaults.standard.set(strAlarm, forKey: "alarm")
         dismiss(animated: true, completion: nil)
         
     }

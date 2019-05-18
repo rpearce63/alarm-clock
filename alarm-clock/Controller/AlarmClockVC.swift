@@ -113,9 +113,10 @@ class AlarmClockVC: UIViewController {
                 UIView.animate(withDuration: 1, animations: {
                     self.clockBottomConstraint.constant = 164
                     self.MainView.layoutIfNeeded()
-                    self.weatherView.alpha = 1;
-                    })
-                
+                })
+                UIView.animate(withDuration: 1.0, delay: 0.5, animations: {
+                    self.weatherView.alpha = 1
+                })
             }
             
             if snoozeBtn.isHidden {
