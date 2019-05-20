@@ -11,8 +11,9 @@ import AVKit
 import AVFoundation
 import Alamofire
 import SwiftyJSON
+import CoreLocation
 
-class AlarmClockVC: UIViewController {
+class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
 
     @IBOutlet weak var clock: UILabel!
     @IBOutlet weak var activateSwitch: UISwitch!
@@ -34,6 +35,10 @@ class AlarmClockVC: UIViewController {
     
     var player : AVQueuePlayer = AudioService.instance.player!
     
+    let locationManager = CLLocationManager()
+    var latitude : Double = 0.0
+    var longitude : Double = 0.0
+    var city : String = ""
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .all
@@ -45,6 +50,11 @@ class AlarmClockVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
+        
         clockBottomConstraint.constant = 8
         MainView.layoutIfNeeded()
         weatherView.alpha = 0
@@ -56,6 +66,28 @@ class AlarmClockVC: UIViewController {
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (timer) in
             self.updateTime()
             self.checkAlarm()
+        }
+        
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            latitude = location.coordinate.latitude
+            longitude = location.coordinate.longitude
+            getCity(lat: latitude, long: longitude)
+            //print(latitude, longitude)
+        }
+    }
+    
+    func getCity(lat:Double, long:Double)  {
+        let apiKey = "AIzaSyBLFtuKPt0lQpmQX631oQDqj06yTObbkUk"
+        let url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(latitude),\(longitude)&result_type=locality&key=\(apiKey)"
+        //print(url)
+        Alamofire.request(url).responseJSON { (responseData) in
+            if responseData.result.value != nil {
+                let sjVar = JSON(responseData.result.value!)
+                self.city = sjVar["results"][0]["address_components"][0]["short_name"].stringValue
+            }
         }
         
     }
@@ -151,17 +183,16 @@ class AlarmClockVC: UIViewController {
 
     func getWeather()  {
         
-        Alamofire.request(URL(string: "https://api.darksky.net/forecast/719e207be3ba45829aeadc5594f8d363/33.007544,-96.518680")!)
+        Alamofire.request( "https://api.darksky.net/forecast/719e207be3ba45829aeadc5594f8d363/\(latitude),\(longitude)")
             .validate()
             .responseJSON { (responseData) in
-                
+                //print(responseData)
                 if((responseData.result.value) != nil) {
                     let swiftyJsonVar = JSON(responseData.result.value!)
-                    //let highTemp : Int = swiftyJsonVar["daily"]["data"][0]["summary"].intValue
                     self.forecastLbl.text =  swiftyJsonVar["daily"]["data"][0]["summary"].stringValue
                     self.tempHighLbl.text = "\(swiftyJsonVar["daily"]["data"][0]["temperatureHigh"].intValue)"
                     self.tempLowLbl.text = "\(swiftyJsonVar["daily"]["data"][0]["temperatureLow"].intValue)"
-                    self.currentWxLbl.text = "Currently \(swiftyJsonVar["currently"]["summary"].stringValue) and \(swiftyJsonVar["currently"]["temperature"].intValue)"
+                    self.currentWxLbl.text = "Currently \(swiftyJsonVar["currently"]["summary"].stringValue) and \(swiftyJsonVar["currently"]["temperature"].intValue) in \(self.city)"
                 }
         }
         

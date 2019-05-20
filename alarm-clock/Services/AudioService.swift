@@ -13,27 +13,17 @@ import AVKit
 class AudioService {
     static let instance = AudioService()
     var player : AVQueuePlayer?
-    //var stream : AVPlayer?
     
     init() {
-        //let path = Bundle.main.path(forResource: "deck-party", ofType: "mp3")
         let musicFiles = Bundle.main.urls(forResourcesWithExtension: "mp3", subdirectory: "audioFiles")
         var songList : [AVPlayerItem] = []
         for song in musicFiles! {
             songList.append(AVPlayerItem(url: song))
         }
         songList.shuffle()
-        //let url = URL(fileURLWithPath: path!)
-        //do {
-            player = AVQueuePlayer(items: songList)
-            player?.volume = 0
-            //let playerItem = AVPlayerItem(url: URL(string: "http://listen.shoutcast.com/SorcererRadio-DisneyParkMusic")!)
-            //stream = AVPlayer(playerItem: playerItem)
-            
-            //stream?.rate = 1.0
-        //} catch {
-       //     print(error)
-      //  }
+        
+        player = AVQueuePlayer(items: songList)
+        player?.volume = 0
     }
         
 }

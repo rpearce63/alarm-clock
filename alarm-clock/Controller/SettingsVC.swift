@@ -29,11 +29,7 @@ class SettingsVC: UIViewController  {
         if let alarms = UserDefaults.standard.array(forKey: "alarmList") as? [String] {
             self.alarms = alarms
         }
-//        let alarm = UserDefaults.standard.integer(forKey: "alarm")
-//        if alarm > 0 {
-//            datePicker.setDate(Date(timeIntervalSince1970: Double(alarm)), animated: true)
-//            timeLbl.text = formatDate()
-//        }
+
         setBackground()
     }
 
@@ -56,8 +52,6 @@ class SettingsVC: UIViewController  {
     }
     
     @IBAction func setAlarmBtnPressed(_ sender: Any) {
-        //print(formatDate())
-        //UserDefaults.standard.set(datePicker.date.timeIntervalSince1970, forKey: "alarm")
         let strAlarm = formatDate()
         alarms.append(strAlarm)
         UserDefaults.standard.set(alarms, forKey: "alarmList")

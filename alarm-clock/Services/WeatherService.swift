@@ -13,9 +13,9 @@ import SwiftyJSON
 class WeatherService {
     static let instance = WeatherService()
     
-    func getWeather() -> String {
-        var current : String = "";
-        Alamofire.request(URL(string: "https://api.darksky.net/forecast/719e207be3ba45829aeadc5594f8d363/37.8267,-122.4233")!)
+    func getWeather() -> JSON {
+        var current : JSON?;
+        return Alamofire.request(URL(string: "https://api.darksky.net/forecast/719e207be3ba45829aeadc5594f8d363/37.8267,-122.4233")!)
             .validate()
             .responseJSON { (responseData) in
                 
@@ -25,11 +25,12 @@ class WeatherService {
                 
                 if((responseData.result.value) != nil) {
                     let swiftyJsonVar = JSON(responseData.result.value!)
-                    current =  (swiftyJsonVar["currently"]["summary"].stringValue)
-                    print(current)
+                    current =  swiftyJsonVar
+                    
                 }
+                return current
         }
-        return current;
+        
     }
     
 }
