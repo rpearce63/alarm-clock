@@ -39,6 +39,7 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
     var latitude : Double = 0.0
     var longitude : Double = 0.0
     var city : String = ""
+    var keys : NSDictionary = [:]
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .all
@@ -67,6 +68,10 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
             self.updateTime()
             self.checkAlarm()
         }
+        if let path = Bundle.main.path(forResource: "keys", ofType: "plist") {
+            keys = NSDictionary(contentsOfFile: path)!
+            //print(keys["gmKey"]!)
+        }
         
     }
     
@@ -80,13 +85,13 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
     }
     
     func getCity(lat:Double, long:Double)  {
-        let apiKey = "AIzaSyBLFtuKPt0lQpmQX631oQDqj06yTObbkUk"
-        let url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(latitude),\(longitude)&result_type=locality&key=\(apiKey)"
+        let apiKey = keys["gmKey"]
+        let url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(latitude),\(longitude)&result_type=postal_code&key=\(apiKey!)"
         //print(url)
         Alamofire.request(url).responseJSON { (responseData) in
             if responseData.result.value != nil {
                 let sjVar = JSON(responseData.result.value!)
-                self.city = sjVar["results"][0]["address_components"][0]["short_name"].stringValue
+                self.city = sjVar["results"][0]["address_components"][1]["short_name"].stringValue
             }
         }
         
