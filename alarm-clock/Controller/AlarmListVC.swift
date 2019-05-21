@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import MediaPlayer
 
-class AlarmListVC: UIViewController {
+class AlarmListVC: UIViewController, MPMediaPickerControllerDelegate {
 
+    //var myMediaPlayer = MPMusicPlayerController.systemMusicPlayer
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -44,6 +46,27 @@ class AlarmListVC: UIViewController {
     
     @IBAction func addBtnPressed(_ sender: Any) {
     }
+    
+    @IBAction func selectMusicButtonPressed(_ sender: UIButton) {
+        
+        let myMediaPickerVC = MPMediaPickerController(mediaTypes: MPMediaType.music)
+        myMediaPickerVC.allowsPickingMultipleItems = true
+        myMediaPickerVC.popoverPresentationController?.sourceView = sender
+        myMediaPickerVC.delegate = self
+        self.present(myMediaPickerVC, animated: true, completion: nil)
+    }
+    
+    func mediaPicker(_ mediaPicker: MPMediaPickerController, didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
+        
+        AudioService.instance.setMusic(mediaItemCollection: mediaItemCollection)
+        mediaPicker.dismiss(animated: true, completion: nil)
+        
+    }
+    
+    func mediaPickerDidCancel(_ mediaPicker: MPMediaPickerController) {
+        mediaPicker.dismiss(animated: true, completion: nil)
+    }
+    
     
     func setTableBackground() {
         let background = UIView(frame: view.bounds)

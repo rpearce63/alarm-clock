@@ -26,6 +26,7 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var weatherView: UIStackView!
     @IBOutlet weak var clockBottomConstraint: NSLayoutConstraint!
     @IBOutlet var MainView: UIView!
+    @IBOutlet weak var dateLbl: UILabel!
     
     var alpha : CGFloat = 1.0
     var alarm: String?
@@ -63,9 +64,11 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
         setBackground()
         setBackgroundFadeImage()
         updateTime()
+        updateDate()
         
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (timer) in
             self.updateTime()
+            self.updateDate()
             self.checkAlarm()
         }
         if let path = Bundle.main.path(forResource: "keys", ofType: "plist") {
@@ -140,7 +143,8 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
     func checkAlarm() {
         if activateSwitch.isOn && (getTimeAsString() == alarm || alarmIsPlaying) {
             if !alarmIsPlaying {
-                self.player.play()
+                AudioService.instance.musicPlayer.play()
+                //self.player.play()
                 alarmIsPlaying = true
                 getWeather()
             }
@@ -163,9 +167,9 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
                 alpha -= 0.01
                 setBackgroundGradientColors(alpha: alpha)
             }
-            if player.volume < 1 {
-                player.volume += 0.01
-            }
+//            if player.volume < 1 {
+//                player.volume += 0.01
+//            }
             if UIScreen.main.brightness < 0.75 {
                 UIScreen.main.brightness += 0.01
             }
@@ -202,20 +206,31 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
         }
         
     }
+    
+    func updateDate()  {
+        let df = DateFormatter()
+        df.dateStyle = .medium
+        df.timeStyle = .none
+        dateLbl.text = df.string(from: Date())
+        
+    }
+    
     @IBAction func settingsBtnPressed(_ sender: Any) {
     }
     
     @IBAction func snoozeBtnPressed(_ sender: Any) {
         shiftAlarmTimeForSnooze()
         snoozeBtn.isHidden = true
-        player.pause()
+        AudioService.instance.musicPlayer.pause()
+        //player.pause()
         alarmIsPlaying = false
         UIScreen.main.brightness = 0.33
     }
     
     @IBAction func alarmSwitchChanged(_ sender: Any) {
         snoozeBtn.isHidden = true
-        player.pause()
+        AudioService.instance.musicPlayer.pause()
+        //player.pause()
         alarmIsPlaying = false
         alpha = 1.0
         setBackgroundGradientColors(alpha: alpha)

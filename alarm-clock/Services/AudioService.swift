@@ -9,10 +9,12 @@
 import Foundation
 import AVFoundation
 import AVKit
+import MediaPlayer
 
 class AudioService {
     static let instance = AudioService()
     var player : AVQueuePlayer?
+    var musicPlayer = MPMusicPlayerController.systemMusicPlayer
     
     init() {
         let musicFiles = Bundle.main.urls(forResourcesWithExtension: "mp3", subdirectory: "audioFiles")
@@ -24,6 +26,11 @@ class AudioService {
         
         player = AVQueuePlayer(items: songList)
         player?.volume = 0
+        musicPlayer.shuffleMode = MPMusicShuffleMode.songs
+    }
+    
+    func setMusic(mediaItemCollection: MPMediaItemCollection) {
+        musicPlayer.setQueue(with: mediaItemCollection)
     }
         
 }
