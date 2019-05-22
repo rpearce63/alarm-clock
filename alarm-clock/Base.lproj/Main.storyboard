@@ -66,8 +66,8 @@
                                     <segue destination="pdf-xA-kMb" kind="show" id="E0G-yQ-llx"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12:00 AM" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Qk-3p-ehE">
-                                <rect key="frame" x="8" y="117" width="398" height="375"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="12:00 AM" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Qk-3p-ehE">
+                                <rect key="frame" x="8" y="174.66666666666666" width="398" height="317.33333333333337"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="112"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -113,7 +113,7 @@
                                 </constraints>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6EM-nB-4FM">
-                                <rect key="frame" x="175.66666666666666" y="38.666666666666671" width="63" height="33.666666666666671"/>
+                                <rect key="frame" x="175.66666666666666" y="133" width="63" height="33.666666666666657"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="28"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -121,10 +121,10 @@
                         </subviews>
                         <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="6EM-nB-4FM" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="113" id="1uR-io-i59"/>
                             <constraint firstItem="OEO-Ly-dOO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="2aC-H3-obM"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="xLN-cK-eM0" secondAttribute="trailing" constant="20" id="3hm-hn-wiv"/>
                             <constraint firstItem="7sg-C5-EbB" firstAttribute="centerY" secondItem="sbE-Pa-0XO" secondAttribute="centerY" id="91L-3N-PfG"/>
-                            <constraint firstItem="6Qk-3p-ehE" firstAttribute="top" secondItem="7gt-VJ-vCC" secondAttribute="bottom" constant="2" id="AMo-3K-WnQ"/>
                             <constraint firstItem="xLN-cK-eM0" firstAttribute="top" secondItem="OEO-Ly-dOO" secondAttribute="bottom" constant="8" id="ER7-vH-r51"/>
                             <constraint firstItem="sbE-Pa-0XO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="JFy-8O-AT6"/>
                             <constraint firstItem="7gt-VJ-vCC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="RTc-H0-qGN"/>
@@ -134,12 +134,12 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6Qk-3p-ehE" secondAttribute="trailing" constant="8" id="cv3-kC-BT7"/>
                             <constraint firstItem="xLN-cK-eM0" firstAttribute="top" secondItem="6Qk-3p-ehE" secondAttribute="bottom" constant="164" id="kKm-GN-k1V"/>
                             <constraint firstItem="6EM-nB-4FM" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="mLc-js-2JQ"/>
-                            <constraint firstItem="7sg-C5-EbB" firstAttribute="centerY" secondItem="6EM-nB-4FM" secondAttribute="centerY" id="usZ-cs-Rn9"/>
                             <constraint firstItem="7gt-VJ-vCC" firstAttribute="top" secondItem="sbE-Pa-0XO" secondAttribute="bottom" constant="16" id="wiN-ep-Rg5"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="xLN-cK-eM0" secondAttribute="bottom" constant="20" id="x0h-m5-DpG"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="OEO-Ly-dOO" secondAttribute="trailing" constant="8" id="xUH-qR-CLu"/>
                             <constraint firstItem="sbE-Pa-0XO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="ykq-Nw-4x5"/>
                             <constraint firstItem="xLN-cK-eM0" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="zNh-N3-Wn7"/>
+                            <constraint firstItem="6Qk-3p-ehE" firstAttribute="top" secondItem="6EM-nB-4FM" secondAttribute="bottom" constant="8" id="zZ1-Te-efa"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

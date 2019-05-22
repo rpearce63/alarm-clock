@@ -58,7 +58,8 @@ class AlarmListVC: UIViewController, MPMediaPickerControllerDelegate {
     
     func mediaPicker(_ mediaPicker: MPMediaPickerController, didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
         
-        AudioService.instance.setMusic(mediaItemCollection: mediaItemCollection)
+        AudioService.instance.setMusic(musicList: mediaItemCollection)
+        AudioService.instance.saveMusicList(musicList: mediaItemCollection)
         mediaPicker.dismiss(animated: true, completion: nil)
         
     }

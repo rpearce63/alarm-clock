@@ -76,6 +76,7 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
             //print(keys["gmKey"]!)
         }
         
+        
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -143,6 +144,7 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
     func checkAlarm() {
         if activateSwitch.isOn && (getTimeAsString() == alarm || alarmIsPlaying) {
             if !alarmIsPlaying {
+                //AudioService.instance.loadSavedMusic()
                 AudioService.instance.musicPlayer.play()
                 //self.player.play()
                 alarmIsPlaying = true

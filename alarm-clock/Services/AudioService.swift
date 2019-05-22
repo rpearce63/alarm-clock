@@ -29,8 +29,40 @@ class AudioService {
         musicPlayer.shuffleMode = MPMusicShuffleMode.songs
     }
     
-    func setMusic(mediaItemCollection: MPMediaItemCollection) {
-        musicPlayer.setQueue(with: mediaItemCollection)
+    func setMusic(musicList: MPMediaItemCollection) {
+        musicPlayer.setQueue(with: musicList)
+        
+    }
+    
+    func saveMusicList(musicList: MPMediaItemCollection) {
+        let filePath = getDocumentDirectory().appendingPathComponent("playlist")
+        //print(filePath)
+        do {
+            let data = NSKeyedArchiver.archivedData(withRootObject: musicList)
+            try data.write(to: filePath)
+            UserDefaults.standard.set(data, forKey: "playlist")
+        } catch {
+            print("couldn't write file")
+        }
+        
+    }
+    
+    func getDocumentDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
+    
+    func loadSavedMusic() {
+        if let musicData = UserDefaults.standard.object(forKey: "playlist") as? Data
+            
+              {
+                let musicList =  (NSKeyedUnarchiver.unarchiveObject(with: musicData) as? MPMediaItemCollection)!
+            setMusic(musicList: musicList)
+             
+                
+        } else {
+            print("couldn't load playlist")
+        }
     }
         
 }
