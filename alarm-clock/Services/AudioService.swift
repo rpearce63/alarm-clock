@@ -61,6 +61,7 @@ class AudioService {
     
     
     func setMusic(musicList: MPMediaItemCollection) {
+        //print("setting music")
         musicPlayer.setQueue(with: musicList)
         musicPlayer.prepareToPlay()
         
@@ -68,6 +69,7 @@ class AudioService {
     }
     
     func saveMusicList(musicList: MPMediaItemCollection) {
+        //print("saving music")
         let data = NSKeyedArchiver.archivedData(withRootObject: musicList)
         UserDefaults.standard.set(data, forKey: "playlist")
     }
