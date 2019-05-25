@@ -27,6 +27,7 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var clockBottomConstraint: NSLayoutConstraint!
     @IBOutlet var MainView: UIView!
     @IBOutlet weak var dateLbl: UILabel!
+    @IBOutlet weak var weatherOverlay: UIView!
     
     var alpha : CGFloat = 1.0
     var alarm: String?
@@ -112,6 +113,7 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
         } else {
             alarmLbl.text = "No Alarm Set"
         }
+        updateBackgroundImage()
     }
     
     
@@ -128,9 +130,22 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
         view.layer.insertSublayer(gradientLayer, at: 0)
         
     }
+    func updateBackgroundImage() {
+        let bgView = self.view.subviews.first as! UIImageView
+        
+        if let imgData = UserDefaults.standard.object(forKey: "bgImage") as? Data {
+            let selectedImage = NSKeyedUnarchiver.unarchiveObject(with: imgData) as! UIImage
+            bgView.image = selectedImage
+        }
+    }
     
     func setBackgroundFadeImage() {
         let backgroundImageView = UIImageView(image: UIImage(named: "sunrise"))
+        if let imgData = UserDefaults.standard.object(forKey: "bgImage") as? Data {
+            let selectedImage = NSKeyedUnarchiver.unarchiveObject(with: imgData) as! UIImage
+            backgroundImageView.image = selectedImage
+        }
+        
         backgroundImageView.frame = view.bounds
         view.insertSubview(backgroundImageView, at: 0)
     }
@@ -159,6 +174,19 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
                 UIView.animate(withDuration: 1.0, delay: 0.5, animations: {
                     self.weatherView.alpha = 1
                 })
+                UIView.animate(withDuration: 30.0, delay: 0.5, animations: {
+                    self.weatherOverlay.alpha = 0.4
+                    
+                }) {_ in
+                    self.forecastLbl.textColor = .white
+                    self.currentWxLbl.textColor = .white
+                    self.tempHighLbl.textColor = .white
+                    self.tempLowLbl.textColor = .white
+                }
+                
+//                UIView.transition(with: self.currentWxLbl, duration: 60.0, options: .transitionCrossDissolve, animations: {
+//                    self.currentWxLbl.textColor = .black
+//                }, completion: nil)
             }
             
             if snoozeBtn.isHidden {
@@ -233,16 +261,16 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
         alarmIsPlaying = false
         alpha = 1.0
         setBackgroundGradientColors(alpha: alpha)
-        if activateSwitch.isOn {
-            UIView.animate(withDuration: 1) {
+        
+        UIView.animate(withDuration: 1) {
+            self.weatherOverlay.alpha = 0
+            if self.activateSwitch.isOn {
                 self.weatherView.alpha = 0
                 self.clockBottomConstraint.constant = 8
                 self.MainView.layoutIfNeeded()
             }
-            audioService.loadSavedMusic()
-            
         }
-        
+        audioService.loadSavedMusic()
         
         UIScreen.main.brightness = 0.33
     }
