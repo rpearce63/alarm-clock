@@ -15,7 +15,8 @@ class SettingsVC: UIViewController  {
     @IBOutlet weak var datePicker: UIDatePicker!
     
     @IBOutlet weak var timeLbl: UILabel!
-    var alarms : [String] = []
+    //var alarms : [String] = []
+    var alarmList : [Date] = []
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .all
@@ -27,8 +28,11 @@ class SettingsVC: UIViewController  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let alarms = UserDefaults.standard.array(forKey: "alarmList") as? [String] {
-            self.alarms = alarms
+//        if let alarms = UserDefaults.standard.array(forKey: "alarmList") as? [String] {
+//            self.alarms = alarms
+//        }
+        if let alarmList = UserDefaults.standard.array(forKey: "alarms") as? [Date] {
+            self.alarmList = alarmList
         }
 
         setBackground()
@@ -54,9 +58,11 @@ class SettingsVC: UIViewController  {
     
     @IBAction func setAlarmBtnPressed(_ sender: Any) {
         let strAlarm = formatDate()
-        alarms.append(strAlarm)
-        UserDefaults.standard.set(alarms, forKey: "alarmList")
+        //alarms.append(strAlarm)
+        alarmList.append(datePicker.date)
+        //UserDefaults.standard.set(alarms, forKey: "alarmList")
         UserDefaults.standard.set(strAlarm, forKey: "alarm")
+        UserDefaults.standard.set(alarmList, forKey: "alarms")
         dismiss(animated: true, completion: nil)
         
     }

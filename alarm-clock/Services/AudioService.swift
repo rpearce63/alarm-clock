@@ -10,41 +10,66 @@ import Foundation
 import AVFoundation
 import AVKit
 import MediaPlayer
+import AudioToolbox
 
 class AudioService {
     static let instance = AudioService()
-    var player : AVQueuePlayer?
-    var musicPlayer = MPMusicPlayerController.systemMusicPlayer
+    var player : AVAudioPlayer?
+    let musicPlayer = MPMusicPlayerController.systemMusicPlayer
+    var musicSelected : Bool = false
+    var soundId: SystemSoundID = 1324
+    var timer: Timer?
     
     init() {
-        let musicFiles = Bundle.main.urls(forResourcesWithExtension: "mp3", subdirectory: "audioFiles")
-        var songList : [AVPlayerItem] = []
-        for song in musicFiles! {
-            songList.append(AVPlayerItem(url: song))
+        let musicFile = Bundle.main.url(forResource: "DCL-Chime", withExtension: "mp3", subdirectory: "audioFiles")
+        //let song = AVPlayerItem(url: musicFile)
+        //var songList : [AVPlayerItem] = []
+        //for song in musicFiles! {
+            //songList.append(AVPlayerItem(url: song))
+        //}
+        //songList.shuffle()
+        do {
+            player = try AVAudioPlayer(contentsOf: musicFile!)
+        } catch {
+            print("could not load file")
         }
-        songList.shuffle()
-        
-        player = AVQueuePlayer(items: songList)
-        player?.volume = 0
+            //player?.volume = 0
         musicPlayer.shuffleMode = MPMusicShuffleMode.songs
+        
+        
     }
+    func play() {
+        musicSelected ? musicPlayer.play() : playDefaultAlarm()
+        
+    }
+    
+    func pause() {
+        musicSelected ? musicPlayer.pause() : stopDefaultAlarm()
+    }
+    
+    func playDefaultAlarm() {
+         timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { (timer) in
+            self.player?.play()
+        }
+        
+    }
+    func stopDefaultAlarm() {
+        player?.pause()
+        timer?.invalidate()
+    }
+    
+    
     
     func setMusic(musicList: MPMediaItemCollection) {
         musicPlayer.setQueue(with: musicList)
+        musicPlayer.prepareToPlay()
+        
         
     }
     
     func saveMusicList(musicList: MPMediaItemCollection) {
-        let filePath = getDocumentDirectory().appendingPathComponent("playlist")
-        //print(filePath)
-        do {
-            let data = NSKeyedArchiver.archivedData(withRootObject: musicList)
-            try data.write(to: filePath)
-            UserDefaults.standard.set(data, forKey: "playlist")
-        } catch {
-            print("couldn't write file")
-        }
-        
+        let data = NSKeyedArchiver.archivedData(withRootObject: musicList)
+        UserDefaults.standard.set(data, forKey: "playlist")
     }
     
     func getDocumentDirectory() -> URL {
@@ -54,15 +79,15 @@ class AudioService {
     
     func loadSavedMusic() {
         if let musicData = UserDefaults.standard.object(forKey: "playlist") as? Data
-            
-              {
-                let musicList =  (NSKeyedUnarchiver.unarchiveObject(with: musicData) as? MPMediaItemCollection)!
+        {
+            let musicList =  (NSKeyedUnarchiver.unarchiveObject(with: musicData) as? MPMediaItemCollection)!
             setMusic(musicList: musicList)
-             
-                
+            musicSelected = true
         } else {
-            print("couldn't load playlist")
+            //print("couldn't load playlist")
+            musicSelected = false
         }
+        
     }
         
 }

@@ -33,8 +33,9 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
     let dateFormatter = DateFormatter()
     var alarmIsPlaying : Bool = false
     var gradientLayer : CAGradientLayer!
+    var audioService : AudioService = AudioService.instance
+    var player : AVAudioPlayer = AudioService.instance.player!
     
-    var player : AVQueuePlayer = AudioService.instance.player!
     
     let locationManager = CLLocationManager()
     var latitude : Double = 0.0
@@ -52,6 +53,7 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //UserDefaults.standard.removeObject(forKey: "playlist")
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -75,6 +77,7 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
             keys = NSDictionary(contentsOfFile: path)!
             //print(keys["gmKey"]!)
         }
+        audioService.loadSavedMusic()
         
         
     }
@@ -132,8 +135,6 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
         view.insertSubview(backgroundImageView, at: 0)
     }
     
-    
-    
     func getTimeAsString(time: Int? = Int(Date().timeIntervalSince1970)) -> String {
         dateFormatter.dateStyle = .none
         dateFormatter.timeStyle = .short
@@ -144,9 +145,7 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
     func checkAlarm() {
         if activateSwitch.isOn && (getTimeAsString() == alarm || alarmIsPlaying) {
             if !alarmIsPlaying {
-                //AudioService.instance.loadSavedMusic()
-                AudioService.instance.musicPlayer.play()
-                //self.player.play()
+                audioService.play()
                 alarmIsPlaying = true
                 getWeather()
             }
@@ -169,9 +168,9 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
                 alpha -= 0.01
                 setBackgroundGradientColors(alpha: alpha)
             }
-//            if player.volume < 1 {
-//                player.volume += 0.01
-//            }
+            if player.volume < 1 {
+                player.volume += 0.01
+            }
             if UIScreen.main.brightness < 0.75 {
                 UIScreen.main.brightness += 0.01
             }
@@ -223,16 +222,14 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
     @IBAction func snoozeBtnPressed(_ sender: Any) {
         shiftAlarmTimeForSnooze()
         snoozeBtn.isHidden = true
-        AudioService.instance.musicPlayer.pause()
-        //player.pause()
+        audioService.pause()
         alarmIsPlaying = false
         UIScreen.main.brightness = 0.33
     }
     
     @IBAction func alarmSwitchChanged(_ sender: Any) {
         snoozeBtn.isHidden = true
-        AudioService.instance.musicPlayer.pause()
-        //player.pause()
+        audioService.pause()
         alarmIsPlaying = false
         alpha = 1.0
         setBackgroundGradientColors(alpha: alpha)
@@ -242,6 +239,7 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
                 self.clockBottomConstraint.constant = 8
                 self.MainView.layoutIfNeeded()
             }
+            audioService.loadSavedMusic()
             
         }
         

@@ -15,7 +15,8 @@ class AlarmListVC: UIViewController, MPMediaPickerControllerDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var alarms: [String] = []
+    //var alarms: [String] = []
+    var alarmList: [Date] = []
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .all
@@ -33,14 +34,18 @@ class AlarmListVC: UIViewController, MPMediaPickerControllerDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if let alarms = UserDefaults.standard.array(forKey: "alarmList") as? [String] {
-            self.alarms = alarms.sorted()
+//        if let alarms = UserDefaults.standard.array(forKey: "alarmList") as? [String] {
+//            self.alarms = alarms.sorted()
+//        }
+        if let alarmList = UserDefaults.standard.array(forKey: "alarms") as? [Date] {
+            self.alarmList = alarmList.sorted()
         }
         tableView.reloadData()
     }
 
     @IBAction func backBtnPressed(_ sender: Any) {
-        UserDefaults.standard.set(alarms, forKey: "alarmList")
+//        UserDefaults.standard.set(alarms, forKey: "alarmList")
+        UserDefaults.standard.set(alarmList, forKey: "alarms")
         dismiss(animated: true, completion: nil)
     }
     
@@ -56,6 +61,9 @@ class AlarmListVC: UIViewController, MPMediaPickerControllerDelegate {
         self.present(myMediaPickerVC, animated: true, completion: nil)
     }
     
+    @IBAction func clearButtonPressed(_ sender: Any) {
+        UserDefaults.standard.removeObject(forKey: "playlist")
+    }
     func mediaPicker(_ mediaPicker: MPMediaPickerController, didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
         
         AudioService.instance.setMusic(musicList: mediaItemCollection)
@@ -88,14 +96,14 @@ extension AlarmListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return alarms.count
+        return alarmList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let strAlarm = UserDefaults.standard.object(forKey: "alarm") as? String
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "alarmCell") else { return UITableViewCell() }
         cell.textLabel?.font = UIFont(name: "Avenir Next", size: 24)
-        cell.textLabel?.text = alarms[indexPath.row]
+        cell.textLabel?.text = formatDate(date: alarmList[indexPath.row])
         if cell.textLabel?.text == strAlarm {
             cell.accessoryType = .checkmark
         } else {
@@ -113,7 +121,7 @@ extension AlarmListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            alarms.remove(at: indexPath.row)
+            alarmList.remove(at: indexPath.row)
         }
         tableView.reloadData()
     }
@@ -129,7 +137,7 @@ extension AlarmListVC: UITableViewDelegate, UITableViewDataSource {
                     UserDefaults.standard.removeObject(forKey: "alarm")
                 } else {
                     selectedCell?.accessoryType = .checkmark
-                    UserDefaults.standard.set(alarms[indexPath.row], forKey: "alarm")
+                    UserDefaults.standard.set(formatDate(date: alarmList[indexPath.row]), forKey: "alarm")
                 }
             }
         }
@@ -137,6 +145,16 @@ extension AlarmListVC: UITableViewDelegate, UITableViewDataSource {
         
         
         
+    }
+    
+    func formatDate(date : Date) -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .none
+        dateFormatter.timeStyle = .short
+        
+        let strDate = dateFormatter.string(from: date)
+        
+        return strDate
     }
 }
 
