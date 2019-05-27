@@ -10,12 +10,10 @@ import UIKit
 
 
 class AlarmListVC: UIViewController {
-
-    //var myMediaPlayer = MPMusicPlayerController.systemMusicPlayer
     
     @IBOutlet weak var tableView: UITableView!
     
-    //var alarms: [String] = []
+    
     var alarmList: [Date] = []
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -34,31 +32,23 @@ class AlarmListVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        if let alarms = UserDefaults.standard.array(forKey: "alarmList") as? [String] {
-//            self.alarms = alarms.sorted()
-//        }
         if let alarmList = UserDefaults.standard.array(forKey: "alarms") as? [Date] {
             self.alarmList = alarmList.sorted()
         }
         tableView.reloadData()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        UserDefaults.standard.set(alarmList, forKey: "alarms")
+    }
 
     @IBAction func backBtnPressed(_ sender: Any) {
-//        UserDefaults.standard.set(alarms, forKey: "alarmList")
-        UserDefaults.standard.set(alarmList, forKey: "alarms")
         dismiss(animated: true, completion: nil)
     }
     
     @IBAction func addBtnPressed(_ sender: Any) {
+        UserDefaults.standard.set(alarmList, forKey: "alarms")
     }
-    
-    
-    
-    @IBAction func clearButtonPressed(_ sender: Any) {
-        UserDefaults.standard.removeObject(forKey: "playlist")
-    }
-    
-    
     
     func setTableBackground() {
         let background = UIView(frame: view.bounds)
@@ -107,6 +97,9 @@ extension AlarmListVC: UITableViewDelegate, UITableViewDataSource {
             alarmList.remove(at: indexPath.row)
         }
         tableView.reloadData()
+        if alarmList.count == 0 {
+            UserDefaults.standard.removeObject(forKey: "alarm")
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -125,9 +118,6 @@ extension AlarmListVC: UITableViewDelegate, UITableViewDataSource {
             }
         }
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        
-        
     }
     
     func formatDate(date : Date) -> String{

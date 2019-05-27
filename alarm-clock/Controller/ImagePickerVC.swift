@@ -68,7 +68,7 @@ class ImagePickerVC: UIViewController,  MPMediaPickerControllerDelegate{
     @IBAction func cancelPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    @IBAction func resetImage(_ sender: Any) {
+    @IBAction func resetImageAndMusic(_ sender: Any) {
         imageView.image = UIImage(named: "sunrise")
         UserDefaults.standard.removeObject(forKey: "bgImage")
         UserDefaults.standard.removeObject(forKey: "playlist")

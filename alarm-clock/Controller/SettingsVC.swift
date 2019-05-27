@@ -28,6 +28,7 @@ class SettingsVC: UIViewController  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        timeLbl.text = formatDate()
 //        if let alarms = UserDefaults.standard.array(forKey: "alarmList") as? [String] {
 //            self.alarms = alarms
 //        }

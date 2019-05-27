@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D427B4B2292CF43008D67F1 /* keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1D427B4A2292CF43008D67F1 /* keys.plist */; };
 		1D427B4F2299698E008D67F1 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D427B4E2299698E008D67F1 /* ImagePicker.swift */; };
 		1D427B5122996E42008D67F1 /* ImagePickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D427B5022996E42008D67F1 /* ImagePickerVC.swift */; };
 		1D427B532299BB36008D67F1 /* ButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D427B522299BB36008D67F1 /* ButtonExtension.swift */; };
+		1D427B562299CAE1008D67F1 /* keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1D427B552299CAE1008D67F1 /* keys.plist */; };
 		4D2FDA1C2093972300D97744 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2FDA1B2093972300D97744 /* AppDelegate.swift */; };
 		4D2FDA1E2093972300D97744 /* AlarmClockVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2FDA1D2093972300D97744 /* AlarmClockVC.swift */; };
 		4D2FDA212093972300D97744 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D2FDA1F2093972300D97744 /* Main.storyboard */; };
@@ -24,10 +24,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1D427B4A2292CF43008D67F1 /* keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = keys.plist; sourceTree = "<group>"; };
 		1D427B4E2299698E008D67F1 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		1D427B5022996E42008D67F1 /* ImagePickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerVC.swift; sourceTree = "<group>"; };
 		1D427B522299BB36008D67F1 /* ButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonExtension.swift; sourceTree = "<group>"; };
+		1D427B552299CAE1008D67F1 /* keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = keys.plist; sourceTree = "<group>"; };
 		4D2FDA182093972300D97744 /* alarm-clock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "alarm-clock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D2FDA1B2093972300D97744 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4D2FDA1D2093972300D97744 /* AlarmClockVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmClockVC.swift; sourceTree = "<group>"; };
@@ -93,8 +93,8 @@
 				4D2FDA222093972500D97744 /* Assets.xcassets */,
 				4D2FDA242093972500D97744 /* LaunchScreen.storyboard */,
 				4D2FDA272093972500D97744 /* Info.plist */,
-				1D427B4A2292CF43008D67F1 /* keys.plist */,
 				1D427B522299BB36008D67F1 /* ButtonExtension.swift */,
+				1D427B552299CAE1008D67F1 /* keys.plist */,
 			);
 			path = "alarm-clock";
 			sourceTree = "<group>";
@@ -189,8 +189,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D427B562299CAE1008D67F1 /* keys.plist in Resources */,
 				4D2FDA262093972500D97744 /* LaunchScreen.storyboard in Resources */,
-				1D427B4B2292CF43008D67F1 /* keys.plist in Resources */,
 				79B5B5C32098C3C7009DD358 /* audioFiles in Resources */,
 				4D2FDA232093972500D97744 /* Assets.xcassets in Resources */,
 				4D2FDA212093972300D97744 /* Main.storyboard in Resources */,

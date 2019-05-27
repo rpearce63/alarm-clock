@@ -57,7 +57,7 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
         //UserDefaults.standard.removeObject(forKey: "playlist")
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
         locationManager.startUpdatingLocation()
         
         clockBottomConstraint.constant = 8
@@ -87,9 +87,16 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
         if let location = locations.first {
             latitude = location.coordinate.latitude
             longitude = location.coordinate.longitude
-            getCity(lat: latitude, long: longitude)
-            //print(latitude, longitude)
+            //getCity(lat: latitude, long: longitude)
+            lookUpCurrentLocation { (location) in
+                self.city = location?.locality ?? ""
+            }
         }
+        locationManager.stopUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("location update failed: \(error.localizedDescription)")
     }
     
     func getCity(lat:Double, long:Double)  {
@@ -103,6 +110,32 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
             }
         }
         
+    }
+    
+    func lookUpCurrentLocation(completionHandler: @escaping (CLPlacemark?)
+        -> Void ) {
+        // Use the last reported location.
+        if let lastLocation = self.locationManager.location {
+            let geocoder = CLGeocoder()
+            
+            // Look up the location and pass it to the completion handler
+            geocoder.reverseGeocodeLocation(
+                lastLocation,
+                completionHandler: { (placemarks, error) in
+                    if error == nil {
+                        let firstLocation = placemarks?[0]
+                        completionHandler(firstLocation)
+                    }
+                    else {
+                        // An error occurred during geocoding.
+                        completionHandler(nil)
+                    }
+            })
+        }
+        else {
+            // No location was available.
+            completionHandler(nil)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -159,6 +192,7 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
     
     func checkAlarm() {
         if activateSwitch.isOn && (getTimeAsString() == alarm || alarmIsPlaying) {
+            
             if !alarmIsPlaying {
                 audioService.play()
                 alarmIsPlaying = true
@@ -184,9 +218,6 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
                     self.tempLowLbl.textColor = .white
                 }
                 
-//                UIView.transition(with: self.currentWxLbl, duration: 60.0, options: .transitionCrossDissolve, animations: {
-//                    self.currentWxLbl.textColor = .black
-//                }, completion: nil)
             }
             
             if snoozeBtn.isHidden {
@@ -220,7 +251,7 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
     }
 
     func getWeather()  {
-        
+        locationManager.requestLocation()
         Alamofire.request( "https://api.darksky.net/forecast/719e207be3ba45829aeadc5594f8d363/\(latitude),\(longitude)")
             .validate()
             .responseJSON { (responseData) in

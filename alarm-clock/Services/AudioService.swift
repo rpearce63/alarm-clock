@@ -74,10 +74,10 @@ class AudioService {
         UserDefaults.standard.set(data, forKey: "playlist")
     }
     
-    func getDocumentDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0]
-    }
+//    func getDocumentDirectory() -> URL {
+//        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+//        return paths[0]
+//    }
     
     func loadSavedMusic() {
         if let musicData = UserDefaults.standard.object(forKey: "playlist") as? Data
