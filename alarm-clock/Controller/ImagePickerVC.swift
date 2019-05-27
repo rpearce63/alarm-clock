@@ -45,7 +45,7 @@ class ImagePickerVC: UIViewController,  MPMediaPickerControllerDelegate{
     }
     
     func mediaPicker(_ mediaPicker: MPMediaPickerController, didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
-        print("selected music")
+        //print("Items selected: \(mediaItemCollection.items.count)")
         AudioService.instance.setMusic(musicList: mediaItemCollection)
         AudioService.instance.saveMusicList(musicList: mediaItemCollection)
         mediaPicker.dismiss(animated: true, completion: nil)

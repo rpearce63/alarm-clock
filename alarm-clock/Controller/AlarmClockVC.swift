@@ -99,18 +99,18 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
         print("location update failed: \(error.localizedDescription)")
     }
     
-    func getCity(lat:Double, long:Double)  {
-        let apiKey = keys["gmKey"]
-        let url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(latitude),\(longitude)&result_type=postal_code&key=\(apiKey!)"
-        //print(url)
-        Alamofire.request(url).responseJSON { (responseData) in
-            if responseData.result.value != nil {
-                let sjVar = JSON(responseData.result.value!)
-                self.city = sjVar["results"][0]["address_components"][1]["short_name"].stringValue
-            }
-        }
-        
-    }
+//    func getCity(lat:Double, long:Double)  {
+//        let apiKey = keys["gmKey"]
+//        let url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(latitude),\(longitude)&result_type=postal_code&key=\(apiKey!)"
+//        //print(url)
+//        Alamofire.request(url).responseJSON { (responseData) in
+//            if responseData.result.value != nil {
+//                let sjVar = JSON(responseData.result.value!)
+//                self.city = sjVar["results"][0]["address_components"][1]["short_name"].stringValue
+//            }
+//        }
+//
+//    }
     
     func lookUpCurrentLocation(completionHandler: @escaping (CLPlacemark?)
         -> Void ) {

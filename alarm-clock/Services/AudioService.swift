@@ -14,7 +14,8 @@ import AudioToolbox
 
 class AudioService {
     static let instance = AudioService()
-    var player : AVAudioPlayer?
+    var player : AVAudioPlayer!
+    var streamPlayer : AVPlayer!
     let musicPlayer = MPMusicPlayerController.systemMusicPlayer
     var musicSelected : Bool = false
     var soundId: SystemSoundID = 1324
@@ -30,6 +31,8 @@ class AudioService {
         //songList.shuffle()
         do {
             player = try AVAudioPlayer(contentsOf: musicFile!)
+            let streamItem = AVPlayerItem(url: URL.init(string: "https://usa15.fastcast4u.com/proxy/wayarena?mp=/1")!)
+            streamPlayer =  AVPlayer(playerItem: streamItem)
         } catch {
             print("could not load file")
         }
@@ -40,7 +43,6 @@ class AudioService {
     }
     func play() {
         musicSelected ? musicPlayer.play() : playDefaultAlarm()
-        
     }
     
     func pause() {
@@ -48,13 +50,16 @@ class AudioService {
     }
     
     func playDefaultAlarm() {
+        //streamPlayer.play()
          timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { (timer) in
             self.player?.play()
         }
-        
+       
     }
+    
     func stopDefaultAlarm() {
-        player?.pause()
+        //streamPlayer.pause()
+        player.pause()
         timer?.invalidate()
     }
     
@@ -83,10 +88,11 @@ class AudioService {
         if let musicData = UserDefaults.standard.object(forKey: "playlist") as? Data
         {
             let musicList =  (NSKeyedUnarchiver.unarchiveObject(with: musicData) as? MPMediaItemCollection)!
+            //print("songs: \(musicList.items.count)")
             setMusic(musicList: musicList)
             musicSelected = true
         } else {
-            //print("couldn't load playlist")
+            print("couldn't load playlist")
             musicSelected = false
         }
         
