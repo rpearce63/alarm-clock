@@ -30,7 +30,7 @@ class AudioService {
         //}
         //songList.shuffle()
         do {
-            player = try AVAudioPlayer(contentsOf: musicFile!)
+            player =  try AVAudioPlayer(contentsOf: musicFile!)
             let streamItem = AVPlayerItem(url: URL.init(string: "https://usa15.fastcast4u.com/proxy/wayarena?mp=/1")!)
             streamPlayer =  AVPlayer(playerItem: streamItem)
         } catch {
@@ -69,35 +69,40 @@ class AudioService {
         //print("setting music")
         musicPlayer.setQueue(with: musicList)
         musicPlayer.prepareToPlay()
+        musicSelected = true
         
         
     }
     
     func saveMusicList(musicList: MPMediaItemCollection) {
         //print("saving music")
-        let data = NSKeyedArchiver.archivedData(withRootObject: musicList)
-        UserDefaults.standard.set(data, forKey: "playlist")
+        var musicPersistentIds = [String]()
+        for item in musicList.items {
+            let persistentId = item.persistentID
+            musicPersistentIds.append("\(persistentId)")
+        }
+        
+        //let data = NSKeyedArchiver.archivedData(withRootObject: musicItems)
+        UserDefaults.standard.set(musicPersistentIds, forKey: "playlist")
     }
     
-//    func getDocumentDirectory() -> URL {
-//        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-//        return paths[0]
-//    }
-    
     func loadSavedMusic() {
-        if let musicData = UserDefaults.standard.object(forKey: "playlist") as? Data
+        if let musicPersistentIds = UserDefaults.standard.array(forKey: "playlist") as? [String]
         {
-            let musicList =  (NSKeyedUnarchiver.unarchiveObject(with: musicData) as? MPMediaItemCollection)!
-            //print("songs: \(musicList.items.count)")
-            setMusic(musicList: musicList)
-            musicSelected = true
+            var musicList = [MPMediaItem]()
+            for id in musicPersistentIds{
+                let predicate = MPMediaPropertyPredicate(value: id, forProperty: MPMediaItemPropertyPersistentID)
+                let query = MPMediaQuery(filterPredicates: [predicate])
+                if let song = query.items?.first {
+                    musicList.append(song)
+                }
+            }
+            setMusic(musicList: MPMediaItemCollection(items: musicList))
         } else {
             print("couldn't load playlist")
             musicSelected = false
         }
-        
     }
-        
 }
 
 extension MutableCollection {

@@ -72,6 +72,7 @@ class ImagePickerVC: UIViewController,  MPMediaPickerControllerDelegate{
         imageView.image = UIImage(named: "sunrise")
         UserDefaults.standard.removeObject(forKey: "bgImage")
         UserDefaults.standard.removeObject(forKey: "playlist")
+        AudioService.instance.loadSavedMusic()
     }
     
 }

@@ -9,11 +9,8 @@
 import UIKit
 import AVKit
 import AVFoundation
-import Alamofire
-import SwiftyJSON
-import CoreLocation
 
-class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
+class AlarmClockVC: UIViewController {
 
     @IBOutlet weak var clock: UILabel!
     @IBOutlet weak var activateSwitch: UISwitch!
@@ -35,13 +32,12 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
     var alarmIsPlaying : Bool = false
     var gradientLayer : CAGradientLayer!
     var audioService : AudioService = AudioService.instance
-    var player : AVAudioPlayer = AudioService.instance.player!
+    //var player : AVPlayer = AudioService.instance.player!
     
     
-    let locationManager = CLLocationManager()
-    var latitude : Double = 0.0
-    var longitude : Double = 0.0
-    var city : String = ""
+    //let locationManager = CLLocationManager()
+    let weatherService = WeatherService.instance
+    //var city : String = ""
     var keys : NSDictionary = [:]
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -55,10 +51,10 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         //UserDefaults.standard.removeObject(forKey: "playlist")
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
-        locationManager.startUpdatingLocation()
+//        locationManager.delegate = self
+//        locationManager.requestWhenInUseAuthorization()
+//        locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
+//        locationManager.startUpdatingLocation()
         
         clockBottomConstraint.constant = 8
         MainView.layoutIfNeeded()
@@ -74,30 +70,30 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
             self.updateDate()
             self.checkAlarm()
         }
-        if let path = Bundle.main.path(forResource: "keys", ofType: "plist") {
-            keys = NSDictionary(contentsOfFile: path)!
+        //if let path = Bundle.main.path(forResource: "keys", ofType: "plist") {
+           // keys = NSDictionary(contentsOfFile: path)!
             //print(keys["gmKey"]!)
-        }
+       // }
         audioService.loadSavedMusic()
         
         
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first {
-            latitude = location.coordinate.latitude
-            longitude = location.coordinate.longitude
-            //getCity(lat: latitude, long: longitude)
-            lookUpCurrentLocation { (location) in
-                self.city = location?.locality ?? ""
-            }
-        }
-        locationManager.stopUpdatingLocation()
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("location update failed: \(error.localizedDescription)")
-    }
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        if let location = locations.first {
+//            latitude = location.coordinate.latitude
+//            longitude = location.coordinate.longitude
+//            //getCity(lat: latitude, long: longitude)
+//            lookUpCurrentLocation { (location) in
+//                self.city = location?.locality ?? ""
+//            }
+//        }
+//        locationManager.stopUpdatingLocation()
+//    }
+//
+//    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+//        print("location update failed: \(error.localizedDescription)")
+//    }
     
 //    func getCity(lat:Double, long:Double)  {
 //        let apiKey = keys["gmKey"]
@@ -112,31 +108,31 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
 //
 //    }
     
-    func lookUpCurrentLocation(completionHandler: @escaping (CLPlacemark?)
-        -> Void ) {
-        // Use the last reported location.
-        if let lastLocation = self.locationManager.location {
-            let geocoder = CLGeocoder()
-            
-            // Look up the location and pass it to the completion handler
-            geocoder.reverseGeocodeLocation(
-                lastLocation,
-                completionHandler: { (placemarks, error) in
-                    if error == nil {
-                        let firstLocation = placemarks?[0]
-                        completionHandler(firstLocation)
-                    }
-                    else {
-                        // An error occurred during geocoding.
-                        completionHandler(nil)
-                    }
-            })
-        }
-        else {
-            // No location was available.
-            completionHandler(nil)
-        }
-    }
+//    func lookUpCurrentLocation(completionHandler: @escaping (CLPlacemark?)
+//        -> Void ) {
+//        // Use the last reported location.
+//        if let lastLocation = self.locationManager.location {
+//            let geocoder = CLGeocoder()
+//
+//            // Look up the location and pass it to the completion handler
+//            geocoder.reverseGeocodeLocation(
+//                lastLocation,
+//                completionHandler: { (placemarks, error) in
+//                    if error == nil {
+//                        let firstLocation = placemarks?[0]
+//                        completionHandler(firstLocation)
+//                    }
+//                    else {
+//                        // An error occurred during geocoding.
+//                        completionHandler(nil)
+//                    }
+//            })
+//        }
+//        else {
+//            // No location was available.
+//            completionHandler(nil)
+//        }
+//    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -197,7 +193,7 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
             if !alarmIsPlaying {
                 audioService.play()
                 alarmIsPlaying = true
-                getWeather()
+                updateWeather()
             }
             
             if weatherView.alpha == 0 {
@@ -228,9 +224,9 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
                 alpha -= 0.01
                 setBackgroundGradientColors(alpha: alpha)
             }
-            if player.volume < 1 {
-                player.volume += 0.01
-            }
+//            if player.volume < 1 {
+//                player.volume += 0.01
+//            }
             if UIScreen.main.brightness < 0.75 {
                 UIScreen.main.brightness += 0.01
             }
@@ -251,20 +247,15 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
         clock.text = dateFormatter.string(from: now)
     }
 
-    func getWeather()  {
-        locationManager.requestLocation()
-        Alamofire.request( "https://api.darksky.net/forecast/719e207be3ba45829aeadc5594f8d363/\(latitude),\(longitude)")
-            .validate()
-            .responseJSON { (responseData) in
-                //print(responseData)
-                if((responseData.result.value) != nil) {
-                    let swiftyJsonVar = JSON(responseData.result.value!)
-                    self.forecastLbl.text =  swiftyJsonVar["daily"]["data"][0]["summary"].stringValue
-                    self.tempHighLbl.text = "\(swiftyJsonVar["daily"]["data"][0]["temperatureHigh"].intValue)"
-                    self.tempLowLbl.text = "\(swiftyJsonVar["daily"]["data"][0]["temperatureLow"].intValue)"
-                    self.currentWxLbl.text = "Currently \(swiftyJsonVar["currently"]["summary"].stringValue) and \(swiftyJsonVar["currently"]["temperature"].intValue) in \(self.city)"
-                }
+    func updateWeather()  {
+        weatherService.getWeather() { response in
+            
+            self.forecastLbl.text =  response["daily"]["data"][0]["summary"].stringValue
+            self.tempHighLbl.text = "\(response["daily"]["data"][0]["temperatureHigh"].intValue)"
+            self.tempLowLbl.text = "\(response["daily"]["data"][0]["temperatureLow"].intValue)"
+            self.currentWxLbl.text = "Currently \(response["currently"]["summary"].stringValue) and \(response["currently"]["temperature"].intValue) in \(self.weatherService.city!)"
         }
+        
         
     }
     
