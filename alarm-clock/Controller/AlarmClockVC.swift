@@ -176,6 +176,7 @@ class AlarmClockVC: UIViewController, CLLocationManagerDelegate {
         let backgroundImageView = UIImageView(image: UIImage(named: "sunrise"))
         if let imgData = UserDefaults.standard.object(forKey: "bgImage") as? Data {
             let selectedImage = NSKeyedUnarchiver.unarchiveObject(with: imgData) as! UIImage
+            backgroundImageView.contentMode = .scaleAspectFill
             backgroundImageView.image = selectedImage
         }
         
