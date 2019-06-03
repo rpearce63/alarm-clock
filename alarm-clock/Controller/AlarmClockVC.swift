@@ -25,6 +25,8 @@ class AlarmClockVC: UIViewController {
     @IBOutlet var MainView: UIView!
     @IBOutlet weak var dateLbl: UILabel!
     @IBOutlet weak var weatherOverlay: UIView!
+    @IBOutlet weak var backgroundImageView: UIImageView!
+    @IBOutlet weak var backgroundMovieView: UIView!
     
     var alpha : CGFloat = 1.0
     var alarm: String?
@@ -32,13 +34,16 @@ class AlarmClockVC: UIViewController {
     var alarmIsPlaying : Bool = false
     var gradientLayer : CAGradientLayer!
     var audioService : AudioService = AudioService.instance
-    //var player : AVPlayer = AudioService.instance.player!
+    var moviePlayer : AVQueuePlayer?
+    var playerLooper: NSObject?
+    var playerLayer: AVPlayerLayer!
+    //var movieView : UIView!
     
-    
-    //let locationManager = CLLocationManager()
+    var backgroundType = "image"
+
     let weatherService = WeatherService.instance
-    //var city : String = ""
-    var keys : NSDictionary = [:]
+    
+    //var keys : NSDictionary = [:]
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .all
@@ -50,18 +55,13 @@ class AlarmClockVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //UserDefaults.standard.removeObject(forKey: "playlist")
-//        locationManager.delegate = self
-//        locationManager.requestWhenInUseAuthorization()
-//        locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
-//        locationManager.startUpdatingLocation()
-        
+ 
         clockBottomConstraint.constant = 8
         MainView.layoutIfNeeded()
         weatherView.alpha = 0
         UIApplication.shared.isIdleTimerDisabled = true
         setBackground()
-        setBackgroundFadeImage()
+        //setBackgroundFadeImage()
         updateTime()
         updateDate()
         
@@ -70,70 +70,13 @@ class AlarmClockVC: UIViewController {
             self.updateDate()
             self.checkAlarm()
         }
-        //if let path = Bundle.main.path(forResource: "keys", ofType: "plist") {
-           // keys = NSDictionary(contentsOfFile: path)!
-            //print(keys["gmKey"]!)
-       // }
+        
         audioService.loadSavedMusic()
         
         
     }
     
-//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        if let location = locations.first {
-//            latitude = location.coordinate.latitude
-//            longitude = location.coordinate.longitude
-//            //getCity(lat: latitude, long: longitude)
-//            lookUpCurrentLocation { (location) in
-//                self.city = location?.locality ?? ""
-//            }
-//        }
-//        locationManager.stopUpdatingLocation()
-//    }
-//
-//    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-//        print("location update failed: \(error.localizedDescription)")
-//    }
-    
-//    func getCity(lat:Double, long:Double)  {
-//        let apiKey = keys["gmKey"]
-//        let url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(latitude),\(longitude)&result_type=postal_code&key=\(apiKey!)"
-//        //print(url)
-//        Alamofire.request(url).responseJSON { (responseData) in
-//            if responseData.result.value != nil {
-//                let sjVar = JSON(responseData.result.value!)
-//                self.city = sjVar["results"][0]["address_components"][1]["short_name"].stringValue
-//            }
-//        }
-//
-//    }
-    
-//    func lookUpCurrentLocation(completionHandler: @escaping (CLPlacemark?)
-//        -> Void ) {
-//        // Use the last reported location.
-//        if let lastLocation = self.locationManager.location {
-//            let geocoder = CLGeocoder()
-//
-//            // Look up the location and pass it to the completion handler
-//            geocoder.reverseGeocodeLocation(
-//                lastLocation,
-//                completionHandler: { (placemarks, error) in
-//                    if error == nil {
-//                        let firstLocation = placemarks?[0]
-//                        completionHandler(firstLocation)
-//                    }
-//                    else {
-//                        // An error occurred during geocoding.
-//                        completionHandler(nil)
-//                    }
-//            })
-//        }
-//        else {
-//            // No location was available.
-//            completionHandler(nil)
-//        }
-//    }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         alarm = UserDefaults.standard.object(forKey: "alarm") as? String
@@ -142,7 +85,8 @@ class AlarmClockVC: UIViewController {
         } else {
             alarmLbl.text = "No Alarm Set"
         }
-        updateBackgroundImage()
+        //updateBackgroundImage()
+        setBackgroundFadeImage()
     }
     
     
@@ -159,25 +103,75 @@ class AlarmClockVC: UIViewController {
         view.layer.insertSublayer(gradientLayer, at: 0)
         
     }
-    func updateBackgroundImage() {
-        let bgView = self.view.subviews.first as! UIImageView
-        
-        if let imgData = UserDefaults.standard.object(forKey: "bgImage") as? Data {
-            let selectedImage = NSKeyedUnarchiver.unarchiveObject(with: imgData) as! UIImage
-            bgView.image = selectedImage
-        }
-    }
+//    func updateBackgroundImage() {
+//        if backgroundType == "movie" {
+//            setBackgroundFadeImage()
+//            return
+//        }
+//        print("setting image as background")
+//        if let bgView = self.view.subviews.first as? UIImageView{
+//
+//            if let imgData = UserDefaults.standard.object(forKey: "bgImage") as? Data {
+//                let selectedImage = NSKeyedUnarchiver.unarchiveObject(with: imgData) as! UIImage
+//                bgView.image = selectedImage
+//            }
+//
+//        }
+//    }
     
     func setBackgroundFadeImage() {
-        let backgroundImageView = UIImageView(image: UIImage(named: "sunrise"))
+        view.sendSubviewToBack(backgroundMovieView)
+        view.sendSubviewToBack(backgroundImageView)
+        if let movieData = UserDefaults.standard.object(forKey: "movie") as? Data {
+            backgroundType = "movie"
+            setMovieAsBackgroundLayer(data: movieData)
+            return
+        }
+
+        backgroundImageView.image = UIImage(named: "sunrise")
+        backgroundImageView.contentMode = .scaleAspectFill
+        backgroundImageView.isHidden = false
+        backgroundMovieView.isHidden = true
+        
         if let imgData = UserDefaults.standard.object(forKey: "bgImage") as? Data {
             let selectedImage = NSKeyedUnarchiver.unarchiveObject(with: imgData) as! UIImage
-            backgroundImageView.contentMode = .scaleAspectFill
+            
             backgroundImageView.image = selectedImage
+            
         }
         
-        backgroundImageView.frame = view.bounds
-        view.insertSubview(backgroundImageView, at: 0)
+        backgroundType = "image"
+    }
+    
+    func setMovieAsBackgroundLayer(data: Data) {
+        print("setting movie background")
+        backgroundImageView.isHidden = true
+        backgroundMovieView.isHidden = false
+        
+        let movieUrl = NSKeyedUnarchiver.unarchiveObject(with: data) as! NSURL
+        //print("stored movie url: ", movieUrl)
+        
+        let playerItem = AVPlayerItem(url: movieUrl as URL)
+        moviePlayer = AVQueuePlayer(items: [playerItem])
+        
+        playerLayer = AVPlayerLayer(player: moviePlayer)
+        playerLayer.frame = backgroundMovieView.bounds
+        playerLayer.videoGravity = .resizeAspectFill
+        
+        
+        playerLooper = AVPlayerLooper(player: moviePlayer!, templateItem: playerItem)
+        backgroundMovieView.layer.addSublayer(playerLayer)
+        
+        backgroundType = "movie"
+        
+        moviePlayer?.seek(to: CMTime.zero)
+        
+    }
+    
+    @objc func loopVideo() {
+        print("looping movie")
+        moviePlayer?.seek(to: .zero)
+        moviePlayer?.play()
     }
     
     func getTimeAsString(time: Int? = Int(Date().timeIntervalSince1970)) -> String {
@@ -194,6 +188,10 @@ class AlarmClockVC: UIViewController {
                 audioService.play()
                 alarmIsPlaying = true
                 updateWeather()
+                if backgroundType == "movie" {
+                    print("playing movie")
+                    moviePlayer?.play()
+                }
             }
             
             if weatherView.alpha == 0 {
@@ -274,6 +272,9 @@ class AlarmClockVC: UIViewController {
         shiftAlarmTimeForSnooze()
         snoozeBtn.isHidden = true
         audioService.pause()
+        
+        moviePlayer?.pause()
+        
         alarmIsPlaying = false
         UIScreen.main.brightness = 0.33
     }
@@ -281,6 +282,7 @@ class AlarmClockVC: UIViewController {
     @IBAction func alarmSwitchChanged(_ sender: Any) {
         snoozeBtn.isHidden = true
         audioService.pause()
+        moviePlayer?.pause()
         alarmIsPlaying = false
         alpha = 1.0
         setBackgroundGradientColors(alpha: alpha)

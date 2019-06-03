@@ -99,7 +99,7 @@ class AudioService {
             }
             setMusic(musicList: MPMediaItemCollection(items: musicList))
         } else {
-            print("couldn't load playlist")
+            print("no playlist found. Using default audio file.")
             musicSelected = false
         }
     }

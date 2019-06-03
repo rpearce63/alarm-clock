@@ -9,7 +9,8 @@
 import UIKit
 
 public protocol ImagePickerDelegate: class {
-    func didSelect(image: UIImage?)
+     func didSelect(image: UIImage?)
+     func didSelectMovie(movie: NSURL?)
 }
 
 open class ImagePicker: NSObject {
@@ -28,7 +29,7 @@ open class ImagePicker: NSObject {
         
         self.pickerController.delegate = self as UIImagePickerControllerDelegate & UINavigationControllerDelegate
         self.pickerController.allowsEditing = true
-        self.pickerController.mediaTypes = ["public.image"]
+        self.pickerController.mediaTypes = ["public.image", "public.movie"]
         
     }
     
@@ -73,6 +74,14 @@ open class ImagePicker: NSObject {
         
         self.delegate?.didSelect(image: image)
     }
+    
+    private func pickerController(_ controller: UIImagePickerController, didSelectMovie movie: NSURL?) {
+        controller.dismiss(animated: true, completion: nil)
+        
+        self.delegate?.didSelectMovie(movie: movie)
+    }
+    
+
 }
 
 extension ImagePicker: UIImagePickerControllerDelegate {
@@ -82,10 +91,19 @@ extension ImagePicker: UIImagePickerControllerDelegate {
     }
     
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        guard let image = info[.editedImage] as? UIImage else {
-            return self.pickerController(picker, didSelect: nil)
+        if info[.mediaType] as? String == "public.movie" {
+            guard let movieUrl = info[.mediaURL] as? NSURL else {
+                print("could not get movie")
+                return
+            }
+            self.pickerController(picker, didSelectMovie: movieUrl)
+            
+        } else {
+            guard let image = info[.editedImage] as? UIImage else {
+                return self.pickerController(picker, didSelect: nil)
+            }
+            self.pickerController(picker, didSelect: image)
         }
-        self.pickerController(picker, didSelect: image)
     }
 }
 
