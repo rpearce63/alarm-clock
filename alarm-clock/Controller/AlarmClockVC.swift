@@ -219,7 +219,7 @@ class AlarmClockVC: UIViewController {
                 snoozeBtn.isHidden = false
             }
             if alpha > 0 {
-                alpha -= 0.01
+                alpha -= 0.02
                 setBackgroundGradientColors(alpha: alpha)
             }
 //            if player.volume < 1 {
