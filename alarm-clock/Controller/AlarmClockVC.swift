@@ -197,7 +197,7 @@ class AlarmClockVC: UIViewController {
             if weatherView.alpha == 0 {
                 
                 UIView.animate(withDuration: 1, animations: {
-                    self.clockBottomConstraint.constant = 160
+                    self.clockBottomConstraint.constant = 120
                     self.MainView.layoutIfNeeded()
                 })
                 UIView.animate(withDuration: 1.0, delay: 0.5, animations: {
