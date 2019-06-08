@@ -56,6 +56,8 @@ class AlarmClockVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
  
+        clock.font = clock.font.withSize(UIScreen.main.bounds.width * 0.30)
+        
         clockBottomConstraint.constant = 8
         MainView.layoutIfNeeded()
         weatherView.alpha = 0
@@ -103,21 +105,7 @@ class AlarmClockVC: UIViewController {
         view.layer.insertSublayer(gradientLayer, at: 0)
         
     }
-//    func updateBackgroundImage() {
-//        if backgroundType == "movie" {
-//            setBackgroundFadeImage()
-//            return
-//        }
-//        print("setting image as background")
-//        if let bgView = self.view.subviews.first as? UIImageView{
-//
-//            if let imgData = UserDefaults.standard.object(forKey: "bgImage") as? Data {
-//                let selectedImage = NSKeyedUnarchiver.unarchiveObject(with: imgData) as! UIImage
-//                bgView.image = selectedImage
-//            }
-//
-//        }
-//    }
+
     
     func setBackgroundFadeImage() {
         view.sendSubviewToBack(backgroundMovieView)
@@ -242,7 +230,13 @@ class AlarmClockVC: UIViewController {
         dateFormatter.timeStyle = .short
         
         let now = Date()
-        clock.text = dateFormatter.string(from: now)
+        // Text is attributed to include a small line height, so need to copy the text
+        // with all existing attributes and update the text value.  clock.text will replace
+        // it with a plain text object
+        let mutableCopy = clock.attributedText?.mutableCopy() as! NSMutableAttributedString
+        mutableCopy.mutableString.setString(dateFormatter.string(from: now))
+        clock.attributedText = mutableCopy
+        
     }
 
     func updateWeather()  {
