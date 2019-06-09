@@ -49,7 +49,7 @@ class AlarmClockVC: UIViewController {
         return .all
     }
     
-    override var shouldAutorotate: Bool {
+   override var shouldAutorotate: Bool {
         return true
     }
     

@@ -2,21 +2,14 @@
 //  SettingsVC.swift
 //  alarm-clock
 //
-//  Created by Rick Pearce on 4/27/18.
-//  Copyright © 2018 Rick Pearce. All rights reserved.
+//  Created by Rick on 6/9/19.
+//  Copyright © 2019 Rick Pearce. All rights reserved.
 //
 
 import UIKit
+import MediaPlayer
 
-
-class SettingsVC: UIViewController  {
-    
-
-    @IBOutlet weak var datePicker: UIDatePicker!
-    
-    @IBOutlet weak var timeLbl: UILabel!
-    //var alarms : [String] = []
-    var alarmList : [Date] = []
+class SettingsVC : UITableViewController {
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .all
@@ -27,54 +20,43 @@ class SettingsVC: UIViewController  {
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        timeLbl.text = formatDate()
-//        if let alarms = UserDefaults.standard.array(forKey: "alarmList") as? [String] {
-//            self.alarms = alarms
-//        }
-        if let alarmList = UserDefaults.standard.array(forKey: "alarms") as? [Date] {
-            self.alarmList = alarmList
-        }
-
-        setBackground()
-    }
-
-    func setBackground() {
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [UIColor.cyan.cgColor ,UIColor.blue.cgColor]
-        gradientLayer.frame = view.bounds
-        view.layer.insertSublayer(gradientLayer, at: 0)
         
     }
     
-    func formatDate() -> String{
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .none
-        dateFormatter.timeStyle = .short
-        
-        let strDate = dateFormatter.string(from: datePicker.date)
-        
-        return strDate
+    
+    @IBAction func selectMusicTouched(_ sender: UIButton) {
+        let myMediaPickerVC = MyMediaPicker(mediaTypes: MPMediaType.music)
+        //myMediaPickerVC.allowsPickingMultipleItems = true
+        myMediaPickerVC.popoverPresentationController?.sourceView = sender
+        //myMediaPickerVC.delegate = self
+        self.present(myMediaPickerVC, animated: true, completion: nil)
     }
     
-    @IBAction func setAlarmBtnPressed(_ sender: Any) {
-        let strAlarm = formatDate()
-        //alarms.append(strAlarm)
-        alarmList.append(datePicker.date)
-        //UserDefaults.standard.set(alarms, forKey: "alarmList")
-        UserDefaults.standard.set(strAlarm, forKey: "alarm")
-        UserDefaults.standard.set(alarmList, forKey: "alarms")
-        dismiss(animated: true, completion: nil)
-        
+//    func mediaPicker(_ mediaPicker: MPMediaPickerController, didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
+//        //print("Items selected: \(mediaItemCollection.items.count)")
+//        AudioService.instance.setMusic(musicList: mediaItemCollection)
+//        AudioService.instance.saveMusicList(musicList: mediaItemCollection)
+//        mediaPicker.dismiss(animated: true, completion: nil)
+//
+//    }
+//
+//    func mediaPickerDidCancel(_ mediaPicker: MPMediaPickerController) {
+//        mediaPicker.dismiss(animated: true, completion: nil)
+//    }
+    
+    
+    @IBAction func resetMusicTouched(_ sender: UIButton) {
+        UserDefaults.standard.removeObject(forKey: "playlist")
+        UserDefaults.standard.removeObject(forKey: "movie")
+        AudioService.instance.loadSavedMusic()
     }
     
-    @IBAction func datePickerChanged(_ sender: Any) {
-        timeLbl.text = formatDate()
+    @IBAction func resetBackground(_ sender: UIButton) {
+        UserDefaults.standard.removeObject(forKey: "bgImage")
     }
-    @IBAction func cancelBtnPressed(_ sender: Any) {
+    
+    @IBAction func doneButtonPressed(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
     
 }
-
-

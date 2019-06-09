@@ -12,12 +12,15 @@
 		1D427B532299BB36008D67F1 /* ButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D427B522299BB36008D67F1 /* ButtonExtension.swift */; };
 		1D427B562299CAE1008D67F1 /* keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1D427B552299CAE1008D67F1 /* keys.plist */; };
 		1D427B58229C92E2008D67F1 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D427B57229C92E2008D67F1 /* WeatherService.swift */; };
+		1D79A09622AD30EB00BA2472 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D79A09522AD30EB00BA2472 /* SettingsVC.swift */; };
+		1D79A09822AD4B8500BA2472 /* MyMediaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D79A09722AD4B8500BA2472 /* MyMediaPicker.swift */; };
+		1D79A09C22AD5B2C00BA2472 /* MyUIImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D79A09B22AD5B2C00BA2472 /* MyUIImagePickerController.swift */; };
 		4D2FDA1C2093972300D97744 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2FDA1B2093972300D97744 /* AppDelegate.swift */; };
 		4D2FDA1E2093972300D97744 /* AlarmClockVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2FDA1D2093972300D97744 /* AlarmClockVC.swift */; };
 		4D2FDA212093972300D97744 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D2FDA1F2093972300D97744 /* Main.storyboard */; };
 		4D2FDA232093972500D97744 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D2FDA222093972500D97744 /* Assets.xcassets */; };
 		4D2FDA262093972500D97744 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D2FDA242093972500D97744 /* LaunchScreen.storyboard */; };
-		4D2FDA2E20939A2900D97744 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2FDA2D20939A2900D97744 /* SettingsVC.swift */; };
+		4D2FDA2E20939A2900D97744 /* SetAlarmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2FDA2D20939A2900D97744 /* SetAlarmVC.swift */; };
 		7976ED82209C08AC002629E6 /* AlarmListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7976ED81209C08AC002629E6 /* AlarmListVC.swift */; };
 		79B5B5A02094B479009DD358 /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B5B59F2094B479009DD358 /* AudioService.swift */; };
 		79B5B5C32098C3C7009DD358 /* audioFiles in Resources */ = {isa = PBXBuildFile; fileRef = 79B5B5C22098C3C7009DD358 /* audioFiles */; };
@@ -30,6 +33,9 @@
 		1D427B522299BB36008D67F1 /* ButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonExtension.swift; sourceTree = "<group>"; };
 		1D427B552299CAE1008D67F1 /* keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = keys.plist; sourceTree = "<group>"; };
 		1D427B57229C92E2008D67F1 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
+		1D79A09522AD30EB00BA2472 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		1D79A09722AD4B8500BA2472 /* MyMediaPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMediaPicker.swift; sourceTree = "<group>"; };
+		1D79A09B22AD5B2C00BA2472 /* MyUIImagePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyUIImagePickerController.swift; sourceTree = "<group>"; };
 		4D2FDA182093972300D97744 /* alarm-clock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "alarm-clock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D2FDA1B2093972300D97744 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4D2FDA1D2093972300D97744 /* AlarmClockVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmClockVC.swift; sourceTree = "<group>"; };
@@ -37,7 +43,7 @@
 		4D2FDA222093972500D97744 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4D2FDA252093972500D97744 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4D2FDA272093972500D97744 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4D2FDA2D20939A2900D97744 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		4D2FDA2D20939A2900D97744 /* SetAlarmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetAlarmVC.swift; sourceTree = "<group>"; };
 		7976ED81209C08AC002629E6 /* AlarmListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmListVC.swift; sourceTree = "<group>"; };
 		79B5B59F2094B479009DD358 /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
 		79B5B5C22098C3C7009DD358 /* audioFiles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = audioFiles; sourceTree = "<group>"; };
@@ -104,11 +110,14 @@
 		4D2FDA2F20939A6300D97744 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				4D2FDA2D20939A2900D97744 /* SettingsVC.swift */,
+				4D2FDA2D20939A2900D97744 /* SetAlarmVC.swift */,
 				4D2FDA1D2093972300D97744 /* AlarmClockVC.swift */,
 				7976ED81209C08AC002629E6 /* AlarmListVC.swift */,
 				1D427B4E2299698E008D67F1 /* ImagePicker.swift */,
 				1D427B5022996E42008D67F1 /* ImagePickerVC.swift */,
+				1D79A09522AD30EB00BA2472 /* SettingsVC.swift */,
+				1D79A09722AD4B8500BA2472 /* MyMediaPicker.swift */,
+				1D79A09B22AD5B2C00BA2472 /* MyUIImagePickerController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -254,9 +263,12 @@
 				79B5B5A02094B479009DD358 /* AudioService.swift in Sources */,
 				4D2FDA1E2093972300D97744 /* AlarmClockVC.swift in Sources */,
 				1D427B4F2299698E008D67F1 /* ImagePicker.swift in Sources */,
+				1D79A09822AD4B8500BA2472 /* MyMediaPicker.swift in Sources */,
+				1D79A09C22AD5B2C00BA2472 /* MyUIImagePickerController.swift in Sources */,
 				4D2FDA1C2093972300D97744 /* AppDelegate.swift in Sources */,
-				4D2FDA2E20939A2900D97744 /* SettingsVC.swift in Sources */,
+				4D2FDA2E20939A2900D97744 /* SetAlarmVC.swift in Sources */,
 				1D427B5122996E42008D67F1 /* ImagePickerVC.swift in Sources */,
+				1D79A09622AD30EB00BA2472 /* SettingsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

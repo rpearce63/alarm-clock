@@ -25,8 +25,16 @@ class ImagePickerVC: UIViewController,  MPMediaPickerControllerDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setImage()
         self.imagePicker = ImagePicker(presentationController: self, delegate: self as ImagePickerDelegate)
+        
+    }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        setImage()
+//    }
+    
+    func setImage() {
         if let imgData = UserDefaults.standard.object(forKey: "bgImage") as? Data {
             let bgImage = NSKeyedUnarchiver.unarchiveObject(with: imgData) as! UIImage
             imageView.image = bgImage
@@ -34,27 +42,26 @@ class ImagePickerVC: UIViewController,  MPMediaPickerControllerDelegate{
             imageView.image = UIImage(named: "sunrise")
         }
     }
-    
-    @IBAction func selectMusicButtonPressed(_ sender: UIButton) {
-        
-        let myMediaPickerVC = MPMediaPickerController(mediaTypes: MPMediaType.music)
-        myMediaPickerVC.allowsPickingMultipleItems = true
-        myMediaPickerVC.popoverPresentationController?.sourceView = sender
-        myMediaPickerVC.delegate = self
-        self.present(myMediaPickerVC, animated: true, completion: nil)
-    }
-    
-    func mediaPicker(_ mediaPicker: MPMediaPickerController, didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
-        //print("Items selected: \(mediaItemCollection.items.count)")
-        AudioService.instance.setMusic(musicList: mediaItemCollection)
-        AudioService.instance.saveMusicList(musicList: mediaItemCollection)
-        mediaPicker.dismiss(animated: true, completion: nil)
-        
-    }
-    
-    func mediaPickerDidCancel(_ mediaPicker: MPMediaPickerController) {
-        mediaPicker.dismiss(animated: true, completion: nil)
-    }
+//    @IBAction func selectMusicButtonPressed(_ sender: UIButton) {
+//        
+//        let myMediaPickerVC = MPMediaPickerController(mediaTypes: MPMediaType.music)
+//        myMediaPickerVC.allowsPickingMultipleItems = true
+//        myMediaPickerVC.popoverPresentationController?.sourceView = sender
+//        myMediaPickerVC.delegate = self
+//        self.present(myMediaPickerVC, animated: true, completion: nil)
+//    }
+//    
+//    func mediaPicker(_ mediaPicker: MPMediaPickerController, didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
+//        //print("Items selected: \(mediaItemCollection.items.count)")
+//        AudioService.instance.setMusic(musicList: mediaItemCollection)
+//        AudioService.instance.saveMusicList(musicList: mediaItemCollection)
+//        mediaPicker.dismiss(animated: true, completion: nil)
+//        
+//    }
+//    
+//    func mediaPickerDidCancel(_ mediaPicker: MPMediaPickerController) {
+//        mediaPicker.dismiss(animated: true, completion: nil)
+//    }
     
     @IBAction func showImagePicker(_ sender: UIButton) {
         self.imagePicker.present(from: sender)
@@ -67,13 +74,6 @@ class ImagePickerVC: UIViewController,  MPMediaPickerControllerDelegate{
     }
     @IBAction func cancelPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
-    }
-    @IBAction func resetImageAndMusic(_ sender: Any) {
-        imageView.image = UIImage(named: "sunrise")
-        UserDefaults.standard.removeObject(forKey: "bgImage")
-        UserDefaults.standard.removeObject(forKey: "movie")
-        UserDefaults.standard.removeObject(forKey: "playlist")
-        AudioService.instance.loadSavedMusic()
     }
     
 }
@@ -105,8 +105,6 @@ extension  ImagePickerVC: ImagePickerDelegate {
         assetImgGenerator.requestedTimeToleranceAfter = CMTime.zero
         assetImgGenerator.requestedTimeToleranceBefore = CMTime.zero
         do {
-        //var error : NSError? = nil
-        //var time : CMTime = CMTimeMakeWithSeconds(0, preferredTimescale: 600)
             let img  = try assetImgGenerator.copyCGImage(at: CMTime.zero, actualTime: nil)
              frameImg = UIImage(cgImage: img)
             return frameImg

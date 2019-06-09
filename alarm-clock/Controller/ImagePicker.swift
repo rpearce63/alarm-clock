@@ -20,7 +20,7 @@ open class ImagePicker: NSObject {
     private weak var delegate: ImagePickerDelegate?
     
     public  init(presentationController: UIViewController, delegate: ImagePickerDelegate) {
-        self.pickerController = UIImagePickerController()
+        self.pickerController = MyUIImagePickerController()
         
         super.init()
         
@@ -108,5 +108,21 @@ extension ImagePicker: UIImagePickerControllerDelegate {
 }
 
 extension ImagePicker: UINavigationControllerDelegate {
+    
+}
+
+class MyUIImagePickerController : UIImagePickerController {
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .all
+    }
+    
+    override var shouldAutorotate: Bool {
+        return true
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
     
 }
