@@ -11,6 +11,11 @@ import MediaPlayer
 
 class SettingsVC : UITableViewController {
     
+    @IBOutlet weak var musicWithVideoSwitch: UISwitch!
+    @IBOutlet weak var fadeSpeedSelector: UISegmentedControl!
+    
+    
+    
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .all
     }
@@ -20,7 +25,10 @@ class SettingsVC : UITableViewController {
     }
     
     override func viewDidLoad() {
-        
+         let musicWithVideo = UserDefaults.standard.bool(forKey: "musicWithVideo")
+        musicWithVideoSwitch.isOn = musicWithVideo
+        let fadeSpeed = UserDefaults.standard.integer(forKey: "fadeSpeed")
+        fadeSpeedSelector.selectedSegmentIndex = fadeSpeed 
     }
     
     
@@ -32,27 +40,26 @@ class SettingsVC : UITableViewController {
         self.present(myMediaPickerVC, animated: true, completion: nil)
     }
     
-//    func mediaPicker(_ mediaPicker: MPMediaPickerController, didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
-//        //print("Items selected: \(mediaItemCollection.items.count)")
-//        AudioService.instance.setMusic(musicList: mediaItemCollection)
-//        AudioService.instance.saveMusicList(musicList: mediaItemCollection)
-//        mediaPicker.dismiss(animated: true, completion: nil)
-//
-//    }
-//
-//    func mediaPickerDidCancel(_ mediaPicker: MPMediaPickerController) {
-//        mediaPicker.dismiss(animated: true, completion: nil)
-//    }
-    
     
     @IBAction func resetMusicTouched(_ sender: UIButton) {
+        print("resetting music")
         UserDefaults.standard.removeObject(forKey: "playlist")
-        UserDefaults.standard.removeObject(forKey: "movie")
-        AudioService.instance.loadSavedMusic()
+        //AudioService.instance.loadSavedMusic()
+    }
+    
+    @IBAction func musicAndVideoChanged(_ sender: UISwitch) {
+        UserDefaults.standard.set(sender.isOn, forKey: "musicWithVideo")
+    }
+    
+    
+    @IBAction func fadeSpeedChanged(_ sender: UISegmentedControl) {
+        UserDefaults.standard.set(sender.selectedSegmentIndex, forKey: "fadeSpeed")
     }
     
     @IBAction func resetBackground(_ sender: UIButton) {
+        print("resetting background image")
         UserDefaults.standard.removeObject(forKey: "bgImage")
+        UserDefaults.standard.removeObject(forKey: "movie")
     }
     
     @IBAction func doneButtonPressed(_ sender: UIButton) {

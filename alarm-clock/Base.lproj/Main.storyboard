@@ -304,6 +304,9 @@
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bye-H4-a6z">
                                                     <rect key="frame" x="345" y="6.3333333333333321" width="51" height="30.999999999999996"/>
+                                                    <connections>
+                                                        <action selector="musicAndVideoChanged:" destination="XL4-Ic-w87" eventType="valueChanged" id="gXH-QT-ZyQ"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -329,6 +332,9 @@
                                                         <segment title="Med"/>
                                                         <segment title="Slow"/>
                                                     </segments>
+                                                    <connections>
+                                                        <action selector="fadeSpeedChanged:" destination="XL4-Ic-w87" eventType="valueChanged" id="fsZ-lk-hxy"/>
+                                                    </connections>
                                                 </segmentedControl>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fade Speed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TZi-vF-s9d">
                                                     <rect key="frame" x="20" y="14.333333333333336" width="91" height="21"/>
@@ -446,6 +452,10 @@
                             <outlet property="delegate" destination="XL4-Ic-w87" id="iEy-2c-9qP"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="fadeSpeedSelector" destination="Obb-oU-5oY" id="tHZ-YE-tDC"/>
+                        <outlet property="musicWithVideoSwitch" destination="Bye-H4-a6z" id="yMK-m8-2BK"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bLZ-7W-aKZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

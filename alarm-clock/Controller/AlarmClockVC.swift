@@ -62,7 +62,7 @@ class AlarmClockVC: UIViewController {
         MainView.layoutIfNeeded()
         weatherView.alpha = 0
         UIApplication.shared.isIdleTimerDisabled = true
-        setBackground()
+        setAlarmOverlay()
         //setBackgroundFadeImage()
         updateTime()
         updateDate()
@@ -87,18 +87,30 @@ class AlarmClockVC: UIViewController {
         } else {
             alarmLbl.text = "No Alarm Set"
         }
-        //updateBackgroundImage()
+        
         setBackgroundFadeImage()
     }
     
     
     func setBackgroundGradientColors(alpha: CGFloat = 1.0) {
+        gradientLayer.removeAnimation(forKey: "colorChange")
         let midnight = #colorLiteral(red: 0.01176470588, green: 0.1529411765, blue: 0.2274509804, alpha: 1) //#03273A
         gradientLayer.colors = [UIColor.black.withAlphaComponent(alpha).cgColor, midnight.withAlphaComponent(alpha).cgColor ,UIColor.black.withAlphaComponent(alpha).cgColor]
         gradientLayer.locations = [0.2, 0.5, 1]
     }
     
-    func setBackground() {
+    func setGradientFadeSpeed() {
+        let midnight = #colorLiteral(red: 0.01176470588, green: 0.1529411765, blue: 0.2274509804, alpha: 1) //#03273A
+        let fadeSpeed = getFadeSpeed()
+        let gradientChangeAnimation = CABasicAnimation(keyPath: "colors")
+        gradientChangeAnimation.duration = CFTimeInterval(fadeSpeed)
+        gradientChangeAnimation.toValue = [UIColor.black.withAlphaComponent(0).cgColor, midnight.withAlphaComponent(0).cgColor ,UIColor.black.withAlphaComponent(0).cgColor]
+        gradientChangeAnimation.fillMode = .forwards
+        gradientChangeAnimation.isRemovedOnCompletion = false
+        gradientLayer.add(gradientChangeAnimation, forKey: "colorChange")
+    }
+    
+    func setAlarmOverlay() {
         gradientLayer = CAGradientLayer()
         setBackgroundGradientColors()
         gradientLayer.frame = view.bounds
@@ -108,14 +120,16 @@ class AlarmClockVC: UIViewController {
 
     
     func setBackgroundFadeImage() {
+        print("setting background")
         view.sendSubviewToBack(backgroundMovieView)
         view.sendSubviewToBack(backgroundImageView)
         if let movieData = UserDefaults.standard.object(forKey: "movie") as? Data {
+            print("found a movie")
             backgroundType = "movie"
             setMovieAsBackgroundLayer(data: movieData)
             return
         }
-
+        print("setting an image")
         backgroundImageView.image = UIImage(named: "sunrise")
         backgroundImageView.contentMode = .scaleAspectFill
         backgroundImageView.isHidden = false
@@ -173,13 +187,28 @@ class AlarmClockVC: UIViewController {
         if activateSwitch.isOn && (getTimeAsString() == alarm || alarmIsPlaying) {
             
             if !alarmIsPlaying {
-                audioService.play()
+                if backgroundType == "movie" {
+                    let musicWithVideo = UserDefaults.standard.bool(forKey: "musicWithVideo")
+                    print("music with video: ", musicWithVideo)
+                    if musicWithVideo {
+                        audioService.play()
+                    }
+                } else {
+                    audioService.play()
+                }
                 alarmIsPlaying = true
                 updateWeather()
                 if backgroundType == "movie" {
                     print("playing movie")
                     moviePlayer?.play()
                 }
+                setGradientFadeSpeed()
+                //let fadeSpeed = getFadeSpeed()
+                
+//                Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true) { (timer) in
+//                    self.alpha -= fadeSpeed
+//                    self.setBackgroundGradientColors(alpha: self.alpha )
+//                }
             }
             
             if weatherView.alpha == 0 {
@@ -206,10 +235,10 @@ class AlarmClockVC: UIViewController {
             if snoozeBtn.isHidden {
                 snoozeBtn.isHidden = false
             }
-            if alpha > 0 {
-                alpha -= 0.02
-                setBackgroundGradientColors(alpha: alpha)
-            }
+//            if alpha > 0 {
+//                alpha -= getFadeSpeed()
+//                setBackgroundGradientColors(alpha: alpha)
+//            }
 //            if player.volume < 1 {
 //                player.volume += 0.01
 //            }
@@ -217,6 +246,17 @@ class AlarmClockVC: UIViewController {
                 UIScreen.main.brightness += 0.01
             }
         }
+    }
+    
+    func getFadeSpeed() -> CGFloat {
+        
+        let fadeSpeedIndex = UserDefaults.standard.integer(forKey: "fadeSpeed")
+        print("fade speed index: " , fadeSpeedIndex)
+        if fadeSpeedIndex == 0 {
+            return 15.0
+        }
+        return fadeSpeedIndex == 1 ? 30.0 : 60
+        
     }
     
     func shiftAlarmTimeForSnooze() {
