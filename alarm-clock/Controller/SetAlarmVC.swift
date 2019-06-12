@@ -19,7 +19,7 @@ class SetAlarmVC: UIViewController  {
     var alarmList : [Date] = []
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .all
+        return [.portrait,.portraitUpsideDown]
     }
     
     override var shouldAutorotate: Bool {
@@ -36,7 +36,7 @@ class SetAlarmVC: UIViewController  {
             self.alarmList = alarmList
         }
 
-        setBackground()
+        //setBackground()
     }
 
     func setBackground() {

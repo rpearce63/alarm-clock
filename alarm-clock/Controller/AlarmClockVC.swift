@@ -46,9 +46,9 @@ class AlarmClockVC: UIViewController {
     //var keys : NSDictionary = [:]
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .all
+        return [.portrait,.portraitUpsideDown]
     }
-    
+
    override var shouldAutorotate: Bool {
         return true
     }
@@ -91,6 +91,19 @@ class AlarmClockVC: UIViewController {
         setBackgroundFadeImage()
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        if UIDevice.current.orientation.isLandscape {
+            print("now in landscape")
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if gradientLayer != nil {
+            gradientLayer.frame = view.bounds
+        }
+    }
     
     func setBackgroundGradientColors(alpha: CGFloat = 1.0) {
         gradientLayer.removeAnimation(forKey: "colorChange")
@@ -118,7 +131,7 @@ class AlarmClockVC: UIViewController {
         
     }
 
-    
+   
     func setBackgroundFadeImage() {
         print("setting background")
         view.sendSubviewToBack(backgroundMovieView)
@@ -255,7 +268,7 @@ class AlarmClockVC: UIViewController {
         if fadeSpeedIndex == 0 {
             return 15.0
         }
-        return fadeSpeedIndex == 1 ? 30.0 : 60
+        return fadeSpeedIndex == 1 ? 30.0 : 60.0
         
     }
     

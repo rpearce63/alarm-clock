@@ -17,7 +17,7 @@ class AlarmListVC: UIViewController {
     var alarmList: [Date] = []
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .all
+        return [.portrait,.portraitUpsideDown]
     }
     
     override var shouldAutorotate: Bool {
@@ -28,7 +28,7 @@ class AlarmListVC: UIViewController {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        setTableBackground()
+        //setTableBackground()
     }
     
     override func viewWillAppear(_ animated: Bool) {

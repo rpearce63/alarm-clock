@@ -16,7 +16,7 @@ class ImagePickerVC: UIViewController,  MPMediaPickerControllerDelegate{
     var imagePicker: ImagePicker!
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .all
+        return [.portrait,.portraitUpsideDown]
     }
     
     override var shouldAutorotate: Bool {
@@ -30,9 +30,6 @@ class ImagePickerVC: UIViewController,  MPMediaPickerControllerDelegate{
         
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        setImage()
-//    }
     
     func setImage() {
         if let imgData = UserDefaults.standard.object(forKey: "bgImage") as? Data {
@@ -42,26 +39,7 @@ class ImagePickerVC: UIViewController,  MPMediaPickerControllerDelegate{
             imageView.image = UIImage(named: "sunrise")
         }
     }
-//    @IBAction func selectMusicButtonPressed(_ sender: UIButton) {
-//        
-//        let myMediaPickerVC = MPMediaPickerController(mediaTypes: MPMediaType.music)
-//        myMediaPickerVC.allowsPickingMultipleItems = true
-//        myMediaPickerVC.popoverPresentationController?.sourceView = sender
-//        myMediaPickerVC.delegate = self
-//        self.present(myMediaPickerVC, animated: true, completion: nil)
-//    }
-//    
-//    func mediaPicker(_ mediaPicker: MPMediaPickerController, didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
-//        //print("Items selected: \(mediaItemCollection.items.count)")
-//        AudioService.instance.setMusic(musicList: mediaItemCollection)
-//        AudioService.instance.saveMusicList(musicList: mediaItemCollection)
-//        mediaPicker.dismiss(animated: true, completion: nil)
-//        
-//    }
-//    
-//    func mediaPickerDidCancel(_ mediaPicker: MPMediaPickerController) {
-//        mediaPicker.dismiss(animated: true, completion: nil)
-//    }
+
     
     @IBAction func showImagePicker(_ sender: UIButton) {
         self.imagePicker.present(from: sender)

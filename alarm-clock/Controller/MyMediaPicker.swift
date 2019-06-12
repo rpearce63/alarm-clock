@@ -12,7 +12,7 @@ import MediaPlayer
 class MyMediaPicker: MPMediaPickerController, MPMediaPickerControllerDelegate {
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .all
+        return [.portrait,.portraitUpsideDown]
     }
     
     override var shouldAutorotate: Bool {
