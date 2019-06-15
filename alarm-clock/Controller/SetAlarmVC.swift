@@ -15,7 +15,6 @@ class SetAlarmVC: UIViewController  {
     @IBOutlet weak var datePicker: UIDatePicker!
     
     @IBOutlet weak var timeLbl: UILabel!
-    //var alarms : [String] = []
     var alarmList : [Date] = []
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -27,11 +26,10 @@ class SetAlarmVC: UIViewController  {
     }
     
     override func viewDidLoad() {
+        print("viewDidLoad")
         super.viewDidLoad()
         timeLbl.text = formatDate()
-//        if let alarms = UserDefaults.standard.array(forKey: "alarmList") as? [String] {
-//            self.alarms = alarms
-//        }
+        
         if let alarmList = UserDefaults.standard.array(forKey: "alarms") as? [Date] {
             self.alarmList = alarmList
         }
@@ -59,16 +57,26 @@ class SetAlarmVC: UIViewController  {
     
     @IBAction func setAlarmBtnPressed(_ sender: Any) {
         let strAlarm = formatDate()
-        //alarms.append(strAlarm)
-        alarmList.append(datePicker.date)
-        //UserDefaults.standard.set(alarms, forKey: "alarmList")
+
+        alarmList.append(convertToBaseDate(datePicker.date))
+        
         UserDefaults.standard.set(strAlarm, forKey: "alarm")
         UserDefaults.standard.set(alarmList, forKey: "alarms")
         dismiss(animated: true, completion: nil)
         
     }
     
+    func convertToBaseDate(_ input: Date) -> Date {
+        var baseDate = Date(timeIntervalSinceReferenceDate: 0)
+        let timeComponents = Calendar.current.dateComponents([.hour, .minute], from: input)
+        
+        baseDate = Calendar.current.date(byAdding: timeComponents, to: baseDate)!
+        
+        return baseDate
+    }
+    
     @IBAction func datePickerChanged(_ sender: Any) {
+        
         timeLbl.text = formatDate()
     }
     @IBAction func cancelBtnPressed(_ sender: Any) {

@@ -38,9 +38,12 @@ class AlarmClockVC: UIViewController {
     var playerLooper: NSObject?
     var playerLayer: AVPlayerLayer!
     //var movieView : UIView!
+    enum BackgroundType : String {
+        case image, movie
+    }
     
-    var backgroundType = "image"
-
+    var backgroundType = BackgroundType.image
+    let midnight = #colorLiteral(red: 0.01176470588, green: 0.1529411765, blue: 0.2274509804, alpha: 1) //#03273A
     let weatherService = WeatherService.instance
     
     //var keys : NSDictionary = [:]
@@ -91,12 +94,12 @@ class AlarmClockVC: UIViewController {
         setBackgroundFadeImage()
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        if UIDevice.current.orientation.isLandscape {
-            print("now in landscape")
-        }
-    }
+//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+//        super.viewWillTransition(to: size, with: coordinator)
+//        if UIDevice.current.orientation.isLandscape {
+//            print("now in landscape")
+//        }
+//    }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -107,13 +110,11 @@ class AlarmClockVC: UIViewController {
     
     func setBackgroundGradientColors(alpha: CGFloat = 1.0) {
         gradientLayer.removeAnimation(forKey: "colorChange")
-        let midnight = #colorLiteral(red: 0.01176470588, green: 0.1529411765, blue: 0.2274509804, alpha: 1) //#03273A
         gradientLayer.colors = [UIColor.black.withAlphaComponent(alpha).cgColor, midnight.withAlphaComponent(alpha).cgColor ,UIColor.black.withAlphaComponent(alpha).cgColor]
         gradientLayer.locations = [0.2, 0.5, 1]
     }
     
     func setGradientFadeSpeed() {
-        let midnight = #colorLiteral(red: 0.01176470588, green: 0.1529411765, blue: 0.2274509804, alpha: 1) //#03273A
         let fadeSpeed = getFadeSpeed()
         let gradientChangeAnimation = CABasicAnimation(keyPath: "colors")
         gradientChangeAnimation.duration = CFTimeInterval(fadeSpeed)
@@ -138,7 +139,7 @@ class AlarmClockVC: UIViewController {
         view.sendSubviewToBack(backgroundImageView)
         if let movieData = UserDefaults.standard.object(forKey: "movie") as? Data {
             print("found a movie")
-            backgroundType = "movie"
+            backgroundType = BackgroundType.movie
             setMovieAsBackgroundLayer(data: movieData)
             return
         }
@@ -155,7 +156,7 @@ class AlarmClockVC: UIViewController {
             
         }
         
-        backgroundType = "image"
+        backgroundType = BackgroundType.image
     }
     
     func setMovieAsBackgroundLayer(data: Data) {
@@ -177,7 +178,7 @@ class AlarmClockVC: UIViewController {
         playerLooper = AVPlayerLooper(player: moviePlayer!, templateItem: playerItem)
         backgroundMovieView.layer.addSublayer(playerLayer)
         
-        backgroundType = "movie"
+        backgroundType = BackgroundType.movie
         
         moviePlayer?.seek(to: CMTime.zero)
         
@@ -200,7 +201,7 @@ class AlarmClockVC: UIViewController {
         if activateSwitch.isOn && (getTimeAsString() == alarm || alarmIsPlaying) {
             
             if !alarmIsPlaying {
-                if backgroundType == "movie" {
+                if backgroundType == BackgroundType.movie {
                     let musicWithVideo = UserDefaults.standard.bool(forKey: "musicWithVideo")
                     print("music with video: ", musicWithVideo)
                     if musicWithVideo {
@@ -211,7 +212,7 @@ class AlarmClockVC: UIViewController {
                 }
                 alarmIsPlaying = true
                 updateWeather()
-                if backgroundType == "movie" {
+                if backgroundType == BackgroundType.movie {
                     print("playing movie")
                     moviePlayer?.play()
                 }
@@ -306,8 +307,9 @@ class AlarmClockVC: UIViewController {
     
     func updateDate()  {
         let df = DateFormatter()
-        df.dateStyle = .medium
-        df.timeStyle = .none
+        df.dateFormat = "E MMM dd, yyyy"
+        //df.dateStyle = .medium
+        //df.timeStyle = .none
         dateLbl.text = df.string(from: Date())
         
     }

@@ -34,6 +34,8 @@ class AlarmListVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         if let alarmList = UserDefaults.standard.array(forKey: "alarms") as? [Date] {
             self.alarmList = alarmList.sorted()
+            
+            print(alarmList)
         }
         tableView.reloadData()
     }
@@ -124,7 +126,7 @@ extension AlarmListVC: UITableViewDelegate, UITableViewDataSource {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .none
         dateFormatter.timeStyle = .short
-        
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
         let strDate = dateFormatter.string(from: date)
         
         return strDate

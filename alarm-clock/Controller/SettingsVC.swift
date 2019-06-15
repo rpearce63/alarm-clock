@@ -15,6 +15,7 @@ class SettingsVC : UITableViewController {
     @IBOutlet weak var fadeSpeedSelector: UISegmentedControl!
     @IBOutlet weak var resetMusicButton: UIButton!
     @IBOutlet weak var resetImageButton: UIButton!
+    @IBOutlet weak var mwvHelpButton: UIButton!
     
     
     
@@ -96,4 +97,34 @@ class SettingsVC : UITableViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func musicWithVideoInfoButtonPressed(_ sender: UIButton) {
+        displayInfoPopover(anchor: sender, content: Constants.MUSIC_WITH_VIDEO_HELP_TEXT)
+        
+    }
+    
+    @IBAction func fadeSpeedInfoButtonPressed(_ sender: UIButton) {
+        displayInfoPopover(anchor: sender, content: Constants.FADE_SPEED_HELP_TEXT)
+    }
+    
+    func displayInfoPopover(anchor: UIButton, content : String ) {
+        guard let popVC = storyboard?.instantiateViewController(withIdentifier: "popVC") as? HelpInfoPopoverVC else { return }
+        
+        popVC.modalPresentationStyle = .popover
+        
+        let popOverVC = popVC.popoverPresentationController
+        popOverVC?.delegate = (self as UIPopoverPresentationControllerDelegate)
+        popOverVC?.sourceView = anchor
+        popOverVC?.sourceRect = CGRect(x: anchor.bounds.midX, y: anchor.bounds.minY, width: 0, height: 0)
+        popVC.preferredContentSize = CGSize(width: 250, height: 150)
+        popVC.content = content
+        self.present(popVC, animated: true)
+    }
+    
+}
+
+extension SettingsVC: UIPopoverPresentationControllerDelegate {
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
 }

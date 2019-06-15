@@ -14,6 +14,7 @@ class ImagePickerVC: UIViewController,  MPMediaPickerControllerDelegate{
     @IBOutlet weak var imageView: UIImageView!
     
     var imagePicker: ImagePicker!
+    var imageSelected = false
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return [.portrait,.portraitUpsideDown]
@@ -35,8 +36,10 @@ class ImagePickerVC: UIViewController,  MPMediaPickerControllerDelegate{
         if let imgData = UserDefaults.standard.object(forKey: "bgImage") as? Data {
             let bgImage = NSKeyedUnarchiver.unarchiveObject(with: imgData) as! UIImage
             imageView.image = bgImage
+            imageSelected = true
         } else {
             imageView.image = UIImage(named: "sunrise")
+            imageSelected = false
         }
     }
 
@@ -45,13 +48,21 @@ class ImagePickerVC: UIViewController,  MPMediaPickerControllerDelegate{
         self.imagePicker.present(from: sender)
     }
     @IBAction func setBackgroundPressed(_ sender: Any) {
-        
-        let imgData = NSKeyedArchiver.archivedData(withRootObject: self.imageView.image!)
-        UserDefaults.standard.set(imgData, forKey: "bgImage")
+        if imageSelected == true {
+            let imgData = NSKeyedArchiver.archivedData(withRootObject: self.imageView.image!)
+            UserDefaults.standard.set(imgData, forKey: "bgImage")
+        }
         dismiss(animated: true, completion: nil)
     }
     @IBAction func cancelPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+    }
+    @IBAction func resetImageButtonPressed(_ sender: Any) {
+        print("resetting image")
+        imageView.image = UIImage(named: "sunrise")
+        UserDefaults.standard.removeObject(forKey: "bgImage")
+        UserDefaults.standard.removeObject(forKey: "movie")
+        imageSelected = false
     }
     
 }
@@ -62,7 +73,7 @@ extension  ImagePickerVC: ImagePickerDelegate {
         if image != nil {
             self.imageView.image = image
             UserDefaults.standard.removeObject(forKey: "movie")
-            
+            imageSelected = true
         }
     }
     
@@ -72,6 +83,7 @@ extension  ImagePickerVC: ImagePickerDelegate {
             UserDefaults.standard.set(movieData, forKey: "movie")
             UserDefaults.standard.removeObject(forKey: "bgImage")
             self.imageView.image = grabFrameImage(url: movie!)
+            imageSelected = true
         }
     }
     
