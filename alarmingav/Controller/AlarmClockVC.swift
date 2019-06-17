@@ -27,6 +27,7 @@ class AlarmClockVC: UIViewController {
     @IBOutlet weak var weatherOverlay: UIView!
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var backgroundMovieView: UIView!
+    @IBOutlet weak var nightModeButton: UIButton!
     
     var alpha : CGFloat = 1.0
     var alarm: String?
@@ -45,6 +46,7 @@ class AlarmClockVC: UIViewController {
     var backgroundType = BackgroundType.image
     let midnight = #colorLiteral(red: 0.01176470588, green: 0.1529411765, blue: 0.2274509804, alpha: 1) //#03273A
     let weatherService = WeatherService.instance
+    var musicWithVideo = true
     
     //var keys : NSDictionary = [:]
     
@@ -202,8 +204,9 @@ class AlarmClockVC: UIViewController {
             
             if !alarmIsPlaying {
                 if backgroundType == BackgroundType.movie {
-                    let musicWithVideo = UserDefaults.standard.bool(forKey: "musicWithVideo")
-                    print("music with video: ", musicWithVideo)
+                    if let musicWithVideoValue = UserDefaults.standard.object(forKey: "musicWithVideo")  {
+                        musicWithVideo = musicWithVideoValue as! Bool
+                    }
                     if musicWithVideo {
                         audioService.play()
                     }
@@ -248,6 +251,7 @@ class AlarmClockVC: UIViewController {
             
             if snoozeBtn.isHidden {
                 snoozeBtn.isHidden = false
+                nightModeButton.isHidden = true
             }
 //            if alpha > 0 {
 //                alpha -= getFadeSpeed()
@@ -264,7 +268,10 @@ class AlarmClockVC: UIViewController {
     
     func getFadeSpeed() -> CGFloat {
         
-        let fadeSpeedIndex = UserDefaults.standard.integer(forKey: "fadeSpeed")
+        var fadeSpeedIndex = 1
+        if let fadeSpeedSavedValue = UserDefaults.standard.object(forKey: "fadeSpeed") {
+            fadeSpeedIndex = fadeSpeedSavedValue as! Int
+        }
         print("fade speed index: " , fadeSpeedIndex)
         if fadeSpeedIndex == 0 {
             return 15.0
@@ -320,6 +327,7 @@ class AlarmClockVC: UIViewController {
     @IBAction func snoozeBtnPressed(_ sender: Any) {
         shiftAlarmTimeForSnooze()
         snoozeBtn.isHidden = true
+        nightModeButton.isHidden = false
         audioService.pause()
         
         moviePlayer?.pause()
@@ -347,6 +355,11 @@ class AlarmClockVC: UIViewController {
         audioService.loadSavedMusic()
         
         UIScreen.main.brightness = 0.33
+        nightModeButton.isHidden = !activateSwitch.isOn
+    }
+    @IBAction func nightModeButtonPressed(_ sender: Any) {
+        UIScreen.main.brightness = 0
+        nightModeButton.isHidden = true
     }
 }
 

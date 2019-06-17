@@ -15,6 +15,7 @@
 		1D71690422B3C20400942BC6 /* HelpInfoPopoverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D71690322B3C20400942BC6 /* HelpInfoPopoverVC.swift */; };
 		1D71690722B565EA00942BC6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D71690622B565EA00942BC6 /* Constants.swift */; };
 		1D71690D22B5A60400942BC6 /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D71690C22B5A60400942BC6 /* AboutVC.swift */; };
+		1D71690F22B68AC200942BC6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D71690E22B68AC200942BC6 /* Default-568h@2x.png */; };
 		1D79A09622AD30EB00BA2472 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D79A09522AD30EB00BA2472 /* SettingsVC.swift */; };
 		1D79A09822AD4B8500BA2472 /* MyMediaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D79A09722AD4B8500BA2472 /* MyMediaPicker.swift */; };
 		4D2FDA1C2093972300D97744 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2FDA1B2093972300D97744 /* AppDelegate.swift */; };
@@ -23,10 +24,10 @@
 		4D2FDA232093972500D97744 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D2FDA222093972500D97744 /* Assets.xcassets */; };
 		4D2FDA262093972500D97744 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D2FDA242093972500D97744 /* LaunchScreen.storyboard */; };
 		4D2FDA2E20939A2900D97744 /* SetAlarmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2FDA2D20939A2900D97744 /* SetAlarmVC.swift */; };
+		4E4440A3EFB93F41D5803E44 /* Pods_alarmingav.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 348481F04C477FCECDD7C9AD /* Pods_alarmingav.framework */; };
 		7976ED82209C08AC002629E6 /* AlarmListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7976ED81209C08AC002629E6 /* AlarmListVC.swift */; };
 		79B5B5A02094B479009DD358 /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B5B59F2094B479009DD358 /* AudioService.swift */; };
 		79B5B5C32098C3C7009DD358 /* audioFiles in Resources */ = {isa = PBXBuildFile; fileRef = 79B5B5C22098C3C7009DD358 /* audioFiles */; };
-		B298E3EB145BD60DB6FDED4D /* Pods_alarm_clock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1E7322499CB7025AC70DD88 /* Pods_alarm_clock.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,9 +39,12 @@
 		1D71690322B3C20400942BC6 /* HelpInfoPopoverVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpInfoPopoverVC.swift; sourceTree = "<group>"; };
 		1D71690622B565EA00942BC6 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		1D71690C22B5A60400942BC6 /* AboutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
+		1D71690E22B68AC200942BC6 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		1D79A09522AD30EB00BA2472 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		1D79A09722AD4B8500BA2472 /* MyMediaPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMediaPicker.swift; sourceTree = "<group>"; };
-		4D2FDA182093972300D97744 /* alarm-clock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "alarm-clock.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		348481F04C477FCECDD7C9AD /* Pods_alarmingav.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_alarmingav.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4126A0740F661FA36BFA1DB3 /* Pods-alarmingav.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alarmingav.debug.xcconfig"; path = "Pods/Target Support Files/Pods-alarmingav/Pods-alarmingav.debug.xcconfig"; sourceTree = "<group>"; };
+		4D2FDA182093972300D97744 /* alarmingav.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = alarmingav.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D2FDA1B2093972300D97744 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4D2FDA1D2093972300D97744 /* AlarmClockVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmClockVC.swift; sourceTree = "<group>"; };
 		4D2FDA202093972300D97744 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -51,9 +55,7 @@
 		7976ED81209C08AC002629E6 /* AlarmListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmListVC.swift; sourceTree = "<group>"; };
 		79B5B59F2094B479009DD358 /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
 		79B5B5C22098C3C7009DD358 /* audioFiles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = audioFiles; sourceTree = "<group>"; };
-		984AA7D2C7BDE0086B0E72AA /* Pods-alarm-clock.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alarm-clock.debug.xcconfig"; path = "Pods/Target Support Files/Pods-alarm-clock/Pods-alarm-clock.debug.xcconfig"; sourceTree = "<group>"; };
-		A1E7322499CB7025AC70DD88 /* Pods_alarm_clock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_alarm_clock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F802BDC79A55FFE2069A8809 /* Pods-alarm-clock.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alarm-clock.release.xcconfig"; path = "Pods/Target Support Files/Pods-alarm-clock/Pods-alarm-clock.release.xcconfig"; sourceTree = "<group>"; };
+		D51EF05853AEE21EFA17D00F /* Pods-alarmingav.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alarmingav.release.xcconfig"; path = "Pods/Target Support Files/Pods-alarmingav/Pods-alarmingav.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B298E3EB145BD60DB6FDED4D /* Pods_alarm_clock.framework in Frameworks */,
+				4E4440A3EFB93F41D5803E44 /* Pods_alarmingav.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,7 +81,7 @@
 		3E22704E4A1D57B8A008D030 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A1E7322499CB7025AC70DD88 /* Pods_alarm_clock.framework */,
+				348481F04C477FCECDD7C9AD /* Pods_alarmingav.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -87,7 +89,8 @@
 		4D2FDA0F2093972300D97744 = {
 			isa = PBXGroup;
 			children = (
-				4D2FDA1A2093972300D97744 /* alarm-clock */,
+				1D71690E22B68AC200942BC6 /* Default-568h@2x.png */,
+				4D2FDA1A2093972300D97744 /* alarmingav */,
 				4D2FDA192093972300D97744 /* Products */,
 				9E80CA4FF18CF07D9067EFD3 /* Pods */,
 				3E22704E4A1D57B8A008D030 /* Frameworks */,
@@ -97,12 +100,12 @@
 		4D2FDA192093972300D97744 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4D2FDA182093972300D97744 /* alarm-clock.app */,
+				4D2FDA182093972300D97744 /* alarmingav.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4D2FDA1A2093972300D97744 /* alarm-clock */ = {
+		4D2FDA1A2093972300D97744 /* alarmingav */ = {
 			isa = PBXGroup;
 			children = (
 				1D71690522B565D600942BC6 /* Utils */,
@@ -117,7 +120,7 @@
 				1D427B522299BB36008D67F1 /* ButtonExtension.swift */,
 				1D427B552299CAE1008D67F1 /* keys.plist */,
 			);
-			path = "alarm-clock";
+			path = alarmingav;
 			sourceTree = "<group>";
 		};
 		4D2FDA2F20939A6300D97744 /* Controller */ = {
@@ -148,8 +151,8 @@
 		9E80CA4FF18CF07D9067EFD3 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				984AA7D2C7BDE0086B0E72AA /* Pods-alarm-clock.debug.xcconfig */,
-				F802BDC79A55FFE2069A8809 /* Pods-alarm-clock.release.xcconfig */,
+				4126A0740F661FA36BFA1DB3 /* Pods-alarmingav.debug.xcconfig */,
+				D51EF05853AEE21EFA17D00F /* Pods-alarmingav.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -157,9 +160,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		4D2FDA172093972300D97744 /* alarm-clock */ = {
+		4D2FDA172093972300D97744 /* alarmingav */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4D2FDA2A2093972500D97744 /* Build configuration list for PBXNativeTarget "alarm-clock" */;
+			buildConfigurationList = 4D2FDA2A2093972500D97744 /* Build configuration list for PBXNativeTarget "alarmingav" */;
 			buildPhases = (
 				FF099667F30A0D672EE32F0B /* [CP] Check Pods Manifest.lock */,
 				4D2FDA142093972300D97744 /* Sources */,
@@ -171,9 +174,9 @@
 			);
 			dependencies = (
 			);
-			name = "alarm-clock";
+			name = alarmingav;
 			productName = "alarm-clock";
-			productReference = 4D2FDA182093972300D97744 /* alarm-clock.app */;
+			productReference = 4D2FDA182093972300D97744 /* alarmingav.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -192,7 +195,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 4D2FDA132093972300D97744 /* Build configuration list for PBXProject "alarm-clock" */;
+			buildConfigurationList = 4D2FDA132093972300D97744 /* Build configuration list for PBXProject "alarmingav" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -205,7 +208,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4D2FDA172093972300D97744 /* alarm-clock */,
+				4D2FDA172093972300D97744 /* alarmingav */,
 			);
 		};
 /* End PBXProject section */
@@ -220,6 +223,7 @@
 				79B5B5C32098C3C7009DD358 /* audioFiles in Resources */,
 				4D2FDA232093972500D97744 /* Assets.xcassets in Resources */,
 				4D2FDA212093972300D97744 /* Main.storyboard in Resources */,
+				1D71690F22B68AC200942BC6 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,7 +236,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-alarm-clock/Pods-alarm-clock-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-alarmingav/Pods-alarmingav-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
@@ -243,7 +247,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-alarm-clock/Pods-alarm-clock-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-alarmingav/Pods-alarmingav-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FF099667F30A0D672EE32F0B /* [CP] Check Pods Manifest.lock */ = {
@@ -257,7 +261,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-alarm-clock-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-alarmingav-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -426,17 +430,17 @@
 		};
 		4D2FDA2B2093972500D97744 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 984AA7D2C7BDE0086B0E72AA /* Pods-alarm-clock.debug.xcconfig */;
+			baseConfigurationReference = 4126A0740F661FA36BFA1DB3 /* Pods-alarmingav.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = D9R62VXR3G;
-				INFOPLIST_FILE = "alarm-clock/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/alarmingav/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pearce.alarm-clock";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pearce.alarmingav;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -445,17 +449,17 @@
 		};
 		4D2FDA2C2093972500D97744 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F802BDC79A55FFE2069A8809 /* Pods-alarm-clock.release.xcconfig */;
+			baseConfigurationReference = D51EF05853AEE21EFA17D00F /* Pods-alarmingav.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = D9R62VXR3G;
-				INFOPLIST_FILE = "alarm-clock/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/alarmingav/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pearce.alarm-clock";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pearce.alarmingav;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -465,7 +469,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4D2FDA132093972300D97744 /* Build configuration list for PBXProject "alarm-clock" */ = {
+		4D2FDA132093972300D97744 /* Build configuration list for PBXProject "alarmingav" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4D2FDA282093972500D97744 /* Debug */,
@@ -474,7 +478,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4D2FDA2A2093972500D97744 /* Build configuration list for PBXNativeTarget "alarm-clock" */ = {
+		4D2FDA2A2093972500D97744 /* Build configuration list for PBXNativeTarget "alarmingav" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4D2FDA2B2093972500D97744 /* Debug */,

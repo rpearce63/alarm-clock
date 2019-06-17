@@ -28,10 +28,12 @@ class SettingsVC : UITableViewController {
     }
     
     override func viewDidLoad() {
-         let musicWithVideo = UserDefaults.standard.bool(forKey: "musicWithVideo")
-        musicWithVideoSwitch.isOn = musicWithVideo
-        let fadeSpeed = UserDefaults.standard.integer(forKey: "fadeSpeed")
-        fadeSpeedSelector.selectedSegmentIndex = fadeSpeed
+        if let musicWithVideo = UserDefaults.standard.object(forKey: "musicWithVideo") {
+            musicWithVideoSwitch.isOn = musicWithVideo as! Bool
+        }
+        if let fadeSpeed = UserDefaults.standard.object(forKey: "fadeSpeed") {
+            fadeSpeedSelector.selectedSegmentIndex = fadeSpeed as! Int
+        }
         setButtonStates()
     }
     
