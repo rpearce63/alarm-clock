@@ -165,11 +165,17 @@ class AlarmClockVC: UIViewController {
         print("setting movie background")
         backgroundImageView.isHidden = true
         backgroundMovieView.isHidden = false
-        
-        let movieUrl = NSKeyedUnarchiver.unarchiveObject(with: data) as! NSURL
+        backgroundMovieView.layer.sublayers = nil
+
+        let movieUrl = NSKeyedUnarchiver.unarchiveObject(with: data) as! URL
         //print("stored movie url: ", movieUrl)
+        let docPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        //print("docPath: ", docPath)
+        let videoUrl = URL(fileURLWithPath: docPath.appendingFormat("/backgroundVideo.mp4"))
+        //print("videoUrl: ", videoUrl)
+        let playerItem = AVPlayerItem(url: videoUrl as URL)
+        //print("playerItem error: ", playerItem.error ?? "none")
         
-        let playerItem = AVPlayerItem(url: movieUrl as URL)
         moviePlayer = AVQueuePlayer(items: [playerItem])
         
         playerLayer = AVPlayerLayer(player: moviePlayer)
@@ -179,18 +185,18 @@ class AlarmClockVC: UIViewController {
         
         playerLooper = AVPlayerLooper(player: moviePlayer!, templateItem: playerItem)
         backgroundMovieView.layer.addSublayer(playerLayer)
-        
+        //print("movie view sublayers: ", backgroundMovieView.layer.sublayers!.count)
         backgroundType = BackgroundType.movie
         
         moviePlayer?.seek(to: CMTime.zero)
         
     }
     
-    @objc func loopVideo() {
-        print("looping movie")
-        moviePlayer?.seek(to: .zero)
-        moviePlayer?.play()
-    }
+//    @objc func loopVideo() {
+//        print("looping movie")
+//        moviePlayer?.seek(to: .zero)
+//        moviePlayer?.play()
+//    }
     
     func getTimeAsString(time: Int? = Int(Date().timeIntervalSince1970)) -> String {
         dateFormatter.dateStyle = .none
@@ -204,6 +210,7 @@ class AlarmClockVC: UIViewController {
             
             if !alarmIsPlaying {
                 if backgroundType == BackgroundType.movie {
+                    moviePlayer?.play()
                     if let musicWithVideoValue = UserDefaults.standard.object(forKey: "musicWithVideo")  {
                         musicWithVideo = musicWithVideoValue as! Bool
                     }
@@ -215,10 +222,7 @@ class AlarmClockVC: UIViewController {
                 }
                 alarmIsPlaying = true
                 updateWeather()
-                if backgroundType == BackgroundType.movie {
-                    print("playing movie")
-                    moviePlayer?.play()
-                }
+                
                 setGradientFadeSpeed()
                 //let fadeSpeed = getFadeSpeed()
                 
