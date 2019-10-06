@@ -59,6 +59,7 @@ class AlarmClockVC: UIViewController {
     }
     
     override func viewDidLoad() {
+        print("viewDidLoad")
         super.viewDidLoad()
  
         clock.font = clock.font.withSize(UIScreen.main.bounds.width * 0.30)
@@ -85,14 +86,20 @@ class AlarmClockVC: UIViewController {
     
 
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        print("viewWillAppear")
+        super.viewWillAppear(true)
+        updateSettings()
+        
+    }
+    
+    func updateSettings() {
         alarm = UserDefaults.standard.object(forKey: "alarm") as? String
         if alarm != nil {
-            alarmLbl.text = alarm
+            alarmLbl?.text = alarm
         } else {
             alarmLbl.text = "No Alarm Set"
         }
-        
+        audioService.loadSavedMusic()
         setBackgroundFadeImage()
     }
     
@@ -167,11 +174,11 @@ class AlarmClockVC: UIViewController {
         backgroundMovieView.isHidden = false
         backgroundMovieView.layer.sublayers = nil
 
-        let movieUrl = NSKeyedUnarchiver.unarchiveObject(with: data) as! URL
+        //let movieUrl = NSKeyedUnarchiver.unarchiveObject(with: data) as! URL
         //print("stored movie url: ", movieUrl)
         let docPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         //print("docPath: ", docPath)
-        let videoUrl = URL(fileURLWithPath: docPath.appendingFormat("/backgroundVideo.mp4"))
+        let videoUrl = URL(fileURLWithPath: docPath.appendingFormat("/backgroundVideo.mov"))
         //print("videoUrl: ", videoUrl)
         let playerItem = AVPlayerItem(url: videoUrl as URL)
         //print("playerItem error: ", playerItem.error ?? "none")
@@ -276,7 +283,6 @@ class AlarmClockVC: UIViewController {
         if let fadeSpeedSavedValue = UserDefaults.standard.object(forKey: "fadeSpeed") {
             fadeSpeedIndex = fadeSpeedSavedValue as! Int
         }
-        print("fade speed index: " , fadeSpeedIndex)
         if fadeSpeedIndex == 0 {
             return 15.0
         }
@@ -326,6 +332,7 @@ class AlarmClockVC: UIViewController {
     }
     
     @IBAction func settingsBtnPressed(_ sender: Any) {
+        
     }
     
     @IBAction func snoozeBtnPressed(_ sender: Any) {
@@ -341,6 +348,7 @@ class AlarmClockVC: UIViewController {
     }
     
     @IBAction func alarmSwitchChanged(_ sender: Any) {
+        alarm = UserDefaults.standard.object(forKey: "alarm") as? String
         snoozeBtn.isHidden = true
         audioService.pause()
         moviePlayer?.pause()
@@ -359,11 +367,22 @@ class AlarmClockVC: UIViewController {
         audioService.loadSavedMusic()
         
         UIScreen.main.brightness = 0.33
-        nightModeButton.isHidden = !activateSwitch.isOn
+        nightModeButton.isHidden = false
+        
     }
     @IBAction func nightModeButtonPressed(_ sender: Any) {
-        UIScreen.main.brightness = 0
-        nightModeButton.isHidden = true
+        if nightModeButton.titleLabel?.text == "Night Mode" {
+            UIScreen.main.brightness = 0
+            nightModeButton.setTitle("Day Mode", for: .normal)
+        } else {
+            UIScreen.main.brightness = 0.5
+            nightModeButton.setTitle("Night Mode", for: .normal)
+        }
     }
+    
+    @IBAction func unwindToMain(segue: UIStoryboardSegue) {
+        updateSettings()
+    }
+    
 }
 

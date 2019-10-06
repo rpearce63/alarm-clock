@@ -17,7 +17,7 @@ class SettingsVC : UITableViewController {
     @IBOutlet weak var resetImageButton: UIButton!
     @IBOutlet weak var mwvHelpButton: UIButton!
     
-    
+    var alarmClockVC:AlarmClockVC?
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return [.portrait,.portraitUpsideDown]
@@ -89,14 +89,9 @@ class SettingsVC : UITableViewController {
     }
     
     @IBAction func resetBackground(_ sender: UIButton) {
-        print("resetting background image")
         UserDefaults.standard.removeObject(forKey: "bgImage")
         UserDefaults.standard.removeObject(forKey: "movie")
         setButtonStates()
-    }
-    
-    @IBAction func doneButtonPressed(_ sender: UIButton) {
-        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func musicWithVideoInfoButtonPressed(_ sender: UIButton) {

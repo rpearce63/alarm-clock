@@ -192,6 +192,11 @@
 					4D2FDA172093972300D97744 = {
 						CreatedOnToolsVersion = 9.3;
 						LastSwiftMigration = 1020;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};

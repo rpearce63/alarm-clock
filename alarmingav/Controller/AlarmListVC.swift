@@ -32,10 +32,12 @@ class AlarmListVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        updateAlarmList()
+    }
+    
+    func updateAlarmList() {
         if let alarmList = UserDefaults.standard.array(forKey: "alarms") as? [Date] {
             self.alarmList = alarmList.sorted()
-            
-            print(alarmList)
         }
         tableView.reloadData()
     }
@@ -44,7 +46,11 @@ class AlarmListVC: UIViewController {
         UserDefaults.standard.set(alarmList, forKey: "alarms")
     }
 
-    @IBAction func backBtnPressed(_ sender: Any) {
+    @IBAction func unwindToAlarmList(segue: UIStoryboardSegue) {
+        updateAlarmList()
+    }
+    
+    @IBAction func doneBtnPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     

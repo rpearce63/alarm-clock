@@ -91,7 +91,7 @@ extension  ImagePickerVC: ImagePickerDelegate {
     func saveVideoToDirectory(videoUrl: NSURL) {
         let videoData = NSData(contentsOf: videoUrl as URL)
         let path = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-        let newPath = path.appendingPathComponent("/backgroundVideo.mp4")
+        let newPath = path.appendingPathComponent("/backgroundVideo.mov")
         do {
             try videoData?.write(to: newPath)
             let movieData = NSKeyedArchiver.archivedData(withRootObject: newPath)

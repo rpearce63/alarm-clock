@@ -26,7 +26,6 @@ class SetAlarmVC: UIViewController  {
     }
     
     override func viewDidLoad() {
-        print("viewDidLoad")
         super.viewDidLoad()
         timeLbl.text = formatDate()
         
@@ -55,15 +54,13 @@ class SetAlarmVC: UIViewController  {
         return strDate
     }
     
-    @IBAction func setAlarmBtnPressed(_ sender: Any) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let strAlarm = formatDate()
 
         alarmList.append(convertToBaseDate(datePicker.date))
         
         UserDefaults.standard.set(strAlarm, forKey: "alarm")
         UserDefaults.standard.set(alarmList, forKey: "alarms")
-        dismiss(animated: true, completion: nil)
-        
     }
     
     func convertToBaseDate(_ input: Date) -> Date {
